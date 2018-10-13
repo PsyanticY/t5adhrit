@@ -1,6 +1,6 @@
 # Compiling open source Software manually:
 
-#### This is done for various reason
+#### Compiling from source is done for various reason
 
 To compile Stuff you need `make` `c++` ...
 These can be installed via:
@@ -14,7 +14,7 @@ Always pay attention to choose a `--prefix` when running the configuration step 
 
 Sometimes the configuration/something similar fail and it is usually due to a missing configuration library/program
 
-when using `make all` or something similar we can specify `-j 32` to allow the compiling process to use your 32 cores instead of a single one.
+When using `make all` or something similar we can specify `-j 32` to allow the compiling process to use your 32 cores instead of a single one.
 
 `make install` generally take all the folders and files and put them in their proper location.
 
