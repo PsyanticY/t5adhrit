@@ -120,7 +120,7 @@ a.b.c.d = 5
 a = { b = { c = { d = 5; }; }; }
 ```
 
-### Modules
+## Modules
 
 It is a good practice to keep services in modules. In this setup, module are divided into a number of modules based on how they are used.
 
@@ -179,3 +179,58 @@ And modify the existing config file to:
 
 The way imports work is Nix is very nice, the file gets loaded and if it is a function it gets passed the global argument set (this is where we get the pkgs variable from). Then the result is merged into the importing module. This means that you don't have to worry about where in the tree your code gets included,
 it is always the root. Now by commenting out or deleting the NGINX import and deploying you can simply remove the service from your system. This is the primary benefit of how I structure the code. Selecting what services should be on a machine (other then the base services which are always present) is as simple as adding or removing imports from the services/ directory.
+
+## Use of arguments
+
+Generally we create a nix file that contains things that can change from on env to another `dev` to `prod` ...
+To ease alot of work we can use arguments to parameterize that.
+
+Arguments are declared as follow in the top of the nixops config file.
+
+For example we can have an `ec2.nix` as follow:
+
+```
+{ account
+, accountId
+, region ? "us-east-1"
+, instanceType ? "r3.xlarge"
+
+# Tagging arguments
+, client ? "PDX"
+, project ? "UNKNOWN"
+, category ? "DEV"
+, owner ? "someone@infor.com"
+, approver ? "someone@infor.com"
+, keep ? false
+
+, description ? ""
+
+, ...
+}:
+{
+  network.description = description;
+  defaults =
+    { resources, lib, ... }:
+
+    deployment.targetEnv = "ec2";
+
+    deployment.ec2 = {
+      inherit region zone;
+      instanceType = lib.mkDefault instanceType;
+      spotInstancePrice = lib.mkDefault spotInstancePrice;
+      ...
+      ...
+      ...
+      tags = {
+        Client = client;
+        Project = project;
+        Category = category;
+        Owner = owner;
+      };
+    };
+}
+```
+The arguments can have default values if not specified in the deployment: `instanceType ? "r3.xlarge"`.
+The `?` is for requiring an argument, the "r3.xlarge" is the default argument (or value) given to the variable if no argument is given.
+Assigning arguments a value use set-args: `nixops set-args -d deployment-name --argstr argument1 "DovahAssassins" --argstr argument2 "FeelPain" --arg isTrue true --unset argument3`
+`arg` is for boolean and `argstr` for string `unset` is to remove an argument.
