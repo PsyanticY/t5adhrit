@@ -5,7 +5,7 @@
 Nixops is the best provisioning tool out there. It can nonetheless improve a lot. it's only handicap is that is only used for NixOS systems.
 
 
-In this (paper)[https://nixos.org/~eelco/pubs/charon-releng2013-final.pdf] NixOps was introduced as a tool for automated provisioning and deployment of machines. NixOps has several important characteristics:
+In this [paper](https://nixos.org/~eelco/pubs/charon-releng2013-final.pdf) NixOps was introduced as a tool for automated provisioning and deployment of machines. NixOps has several important characteristics:
 
 • It is declarative
 • It performs provisioning
