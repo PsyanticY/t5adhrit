@@ -26,6 +26,7 @@ $ lsmod | grep dm_crypt
 ```
 To install it, Run: `yum/apt-get install cryptsetup`
 
+[WIP]
 
 ### parted
 

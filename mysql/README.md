@@ -37,8 +37,8 @@ FROM
 ```
 
 When migrating to a newer RDS database:
-Create a snapshot for rollback:
-Create a schema for the new DB: `mysql -h new-host-endpoint -u master -ppassword testRDB < /usr/share/zabbix-mysql/schema.sql`
-Import the needed data and drop what we don"t want: `mysqldump -h new-host-endpoint -u master -ppassword  zabbixRDB --ignore-table=zabbixRDB.history --ignore-table=zabbixRDB.history_log --ignore-table=zabbixRDB.history_text --ignore-table=zabbixRDB.history_str --ignore-table=zabbixRDB.history_uint > zabbix_migration.sql`
-Import the data: mysql -h new-host-endpoint -u master -ppassword zabbixRDB < zabbix_migration.sql
--> Now you got your new empty databse without the unneeded old junk.
+- Create a snapshot for rollback:
+- Create a schema for the new DB: `mysql -h new-host-endpoint -u master -ppassword testRDB < /usr/share/zabbix-mysql/schema.sql`
+- Import the needed data and drop what we don"t want: `mysqldump -h new-host-endpoint -u master -ppassword  zabbixRDB --ignore-table=zabbixRDB.history --ignore-table=zabbixRDB.history_log --ignore-table=zabbixRDB.history_text --ignore-table=zabbixRDB.history_str --ignore-table=zabbixRDB.history_uint > zabbix_migration.sql`
+- Import the data: mysql -h new-host-endpoint -u master -ppassword zabbixRDB < zabbix_migration.sql
+-> Now you got your new empty database without the unneeded old junk.

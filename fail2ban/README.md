@@ -1,4 +1,4 @@
-# Fail2ban [WIP]
+# Fail2ban
 
 Todo: Check datepattern
 
@@ -11,12 +11,13 @@ Need to set up firewalld/iptables to allow all traffic and only bans non needed 
 Let's discuss firewalld in our case:
 * we need to install firewalld and set the zone to trusted named `freeipa` is this case
 * Only deny access to given IPs using firewalld's rich rules:
-`firewall-cmd  --zone=freeipa --add-rich-rule='rule family="ipv4" source address="172.16.119.1" port protocol="tcp" port="22" reject'``
+`firewall-cmd  --zone=freeipa --add-rich-rule='rule family="ipv4" source address="172.16.119.1" port protocol="tcp" port="22" reject'`
+
 __Note__: This is not permanent as it is not permanent banned in fail2ban anyway
 
 
-Change firewalld interface: `firewall-cmd --zone=public --change-interface=eth0`
-Change zone default behaviour: `firewall-cmd --zone=public --set-target=ACCEPT --permanent`
+- Change firewalld interface: `firewall-cmd --zone=public --change-interface=eth0`
+- Change zone default behaviour: `firewall-cmd --zone=public --set-target=ACCEPT --permanent`
 
 --------------------------------------------------------------------------------
 
