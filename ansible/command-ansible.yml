@@ -1,0 +1,17 @@
+ansible-playbook myfirstplaybook.yml --check (this is a dry run)
+ansible all --list-hosts
+ansible-playbook local.yml --connection=local
+
+ansible-vault create secure.yml
+ansible-vault edit secure.yml ( to open and edit)
+ansible-vault rekey secure.yml (change the password)
+ansible-playbook tags.yml --tags "verification"
+ansible-playbook tags.yml --skip-tags "verification"
+
+ansible-playbook startat.yml --start-at-task="Install Lynx"
+ansible-playbook startat.yml --step
+ansible-playbook from-command-line.yml --extra-vars "hosts=apacheweb user=test pkg=telent"
+
+ansible apacheweb -m setup -a 'filter=ansible_distribution'
+ansible apacheweb -m file -a 'path=/etc/fstab'   /// get the info of the file fstab
+ansible apacheweb -s -m file -a 'path=/tmp/etc state=directory mode=700 owner=root'

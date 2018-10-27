@@ -1,0 +1,13 @@
+--- # apt example
+- host: apapcheweb
+  user: test
+  sudo: yes
+  connection: ssh
+  gather_facts: no
+  tasks:
+    - name: Install apache web server
+      apt: name=apache2 state=present # absent
+    - name: equivalant of apt-get update
+      apt: update_cache=yes
+    - name: equivalant of apt-get upgrade
+      apt: upgrade=dist

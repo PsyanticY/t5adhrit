@@ -1,0 +1,11 @@
+--- # acl example
+- host: apapcheweb
+  user: test
+  sudo: yes
+  connection: ssh
+  gather_facts: no
+  tasks:
+    - name: Get acl information on the /etc/test.acl.txt remote file
+      acl: name=/etc/test.acl.txt etype=user permissions="rw" state= present
+      register: aclinfo
+    - debug: msg={{ aclinfo }}

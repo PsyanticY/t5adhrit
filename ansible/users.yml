@@ -1,0 +1,12 @@
+--- # users example
+- hosts: apacheweb
+  user: test
+  sudo: yes
+  gather_facts: no
+  connection: ssh
+  tasks:
+    - name: Add the user called apacheee to the apache web client
+      user: name=apacheee comment="Test Apache" uid=3030 group=wheel shell=/bin/bash
+    - name: remove a user
+      user: name=apacheee state=abscent remove=yes
+      

@@ -1,0 +1,10 @@
+--- # command example
+- hosts: apacheweb
+  user: test
+  sudo: yes
+  connection: ssh
+  tasks:
+    - name: Check for python packages
+      command: /home/test/test.sh
+      args:
+        chdir: /home/test/testing

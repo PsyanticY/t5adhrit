@@ -1,0 +1,12 @@
+--- # stat example
+- hosts: webserver
+  user: test
+  sudo: yes
+  connection: ssh
+  gather_facts: no
+  tasks:
+    - name: Does a file/directory exist in this path or not
+      stat: path=/home/test/abc
+        register: p
+    - debug: msg="The path exists and it is a directory"
+        when: p.stat.isdir is defined and p.stat.isdir

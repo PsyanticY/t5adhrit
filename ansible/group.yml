@@ -1,0 +1,9 @@
+--- # group exampel
+- hosts: all
+  user: test
+  sudo: yes
+  connection: ssh
+  gather_facts: no
+  tasks:
+    - name: Managing groups
+      group: name=newgroup state=present gid=1050

@@ -1,0 +1,12 @@
+--- # mysqlDB_User example
+- host: apapcheweb
+  user: test
+  sudo: yes
+  connection: ssh
+  gather_facts: yes
+  tasks:
+    - name: Install the Mysql Python support Library
+      yum: pkg=MySQL-python stae=latest
+    - name: Creatre a new user called BOB and give him all access
+      mysql_user: name=bob password=123password priv=*.* state=present login_user=root login_password=password123
+      

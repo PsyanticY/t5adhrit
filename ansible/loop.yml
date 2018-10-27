@@ -1,0 +1,13 @@
+--- # Loop playbook Example
+- hosts: apacheweb
+  user: test
+  sudo: yes
+  connection: ssh
+  gather_facts: no
+  tasks:
+    - name: Add a list of users
+      user: name ={{ item}} state=present
+      with_items:
+        - user1
+        - user2
+        - user3

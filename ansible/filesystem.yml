@@ -1,0 +1,10 @@
+--- # filesystem exampel
+- hosts: all
+  user: test
+  sudo: yes
+  connection: ssh
+  gather_facts: no
+  tasks:
+    - name: Format the data remote partition
+      filesystem: fstype=ext3 dev=xvdf1 opts="-cc"
+      

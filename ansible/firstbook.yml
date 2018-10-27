@@ -1,0 +1,34 @@
+--- # My first YAML Playbook for ansible
+- hosts: all
+  user: test
+  sudo: yes
+  connection: ssh
+  gather_facts: no
+  vars:
+    playbook_version: 0.1b
+    vars_files:
+      - copyright.yml
+      - webdefaults.yml
+    vars_prompt:
+      - name: web_domain
+        prompt: Web Domain
+#     - name: pkg_name
+#       prompt: Install which package ?
+  tasks:
+#   - name: Install Lynx web browser
+#     action: yum name=lynx state=installed
+#   - name: Check for telent client
+#     action: yum name=telnet state=absent
+
+#   - name: Install provided package
+#     action: yum name= {{ pkg_name}} state=installed
+    - name: Install apache web server
+      action: yum name=httpd state=installed
+      async: 300
+      poll: 3
+      notify: Restart HTTPD
+    - name: Install the lynx web browser
+      action: yum name= {{ pkg_lynx}} state=installed
+  handlers:
+    - name: Restart the pache web server
+      action: service name=httpd state=restarted

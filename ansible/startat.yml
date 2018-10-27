@@ -1,0 +1,15 @@
+--- # Start at playbook example
+- hosts: apacheweb
+  user: test
+  sudo: yes
+  connection: ssh
+  gather_facts: no
+  tasks:
+    - name: Install telent
+      yum: pkg=telnet state=latest
+    - name: Install lynx
+      yum: pkg=lynx state=latest
+    - name: List home
+      command: ls -al /home/test
+      register: result
+    - debug: var=result 

@@ -1,0 +1,15 @@
+--- # delegate to function demo
+- host: apapcheweb
+  user: test
+  sudo: yes
+  connection: ssh
+  gather_facts: no
+  tasks:
+    - name: installing apache Tomcat
+      action: yum name=tomcat state=installed
+    - name: Waiting for port 8080 to start listen
+      wait_for:
+        port: 8080
+        state: started
+    - name: Verifying lynx isntallation
+      action: yum name=lynx state=present

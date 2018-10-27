@@ -1,0 +1,8 @@
+- name: Restart HTTPD
+  service: name={{ redhat_apache}} state=restarted
+  when: "ansible_os_family='Redhat'"
+  ignore_errors: yes
+- name: Restart apache2
+  service: name={{ debian_apache}} state=restarted
+  when: "ansiblel_os_family == debian"
+  ignore_errors: yes

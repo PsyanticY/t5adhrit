@@ -1,0 +1,13 @@
+--- # shell example
+- hosts: apacheb
+  user: test
+  sudo: yes
+  connection: ssh
+  gather_facts: no
+  tasks:
+    - name: Executing a remote command - uptime
+      shell: /usr/bin/uptime >> uptime.log
+      args:
+        chdir: logs/
+        creates: uptime.log
+        

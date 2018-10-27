@@ -1,0 +1,12 @@
+ansible apacheweb -u test -s -m yum -a "pkg=httpd state=latest"
+ansible aptserver -u test -s -m apt -a "pkg=apache2 state=latest"
+ansible redhat - u test -s -m yum -a "pkg=lynx state=latest"
+
+ansible all -u test -m command -a "ls -al"
+ansible aptserver -u test -s -m command -a "cat /etc/issue"  ## execute the command we throw in there
+ansible aptserver -u test -s -m raw -a "cat /etc/issue"
+ansible aptserver -u test -s -m shell -a "cat /etc/issue"
+ansible redhat -u test -s - m user -a "name="yo uid=4545 shell="/bin/bash"
+ansible redhat -u test -s - m user -a "name="yo state=absent remove=yes"
+
+ansibel  all -u test -s -m cron "name='crontest' minute='0' hour='12' job='ls -al /var >/root/var.log'"

@@ -1,0 +1,8 @@
+--- # Ping module exampel
+- hosts: all
+  user: test
+  connection: ssh
+  gather_facts: no
+  tasks:
+    - name: ping all the hosts
+      ping:

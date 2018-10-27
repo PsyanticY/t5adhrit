@@ -1,0 +1,8 @@
+--- # copy example
+- hosts: apacheweb
+  user: test
+  sudo: yes
+  connection: ssh
+  tasks:
+    - name: Copy from the files directory test files
+      action: copy src=files/test1.txt dest=/home/test/test1.txt owner=test group=test mode=0644 

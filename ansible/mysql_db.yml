@@ -1,0 +1,13 @@
+--- # mysql_db example
+- host: apapcheweb
+  user: test
+  sudo: yes
+  connection: ssh
+  gather_facts: no
+  tasks:
+    - name: Install the python Mysql support libraries
+      yum: pkg=MySQL-python state=latest
+    - name: Create a new test DB called MynewDB
+      mysql_db: name=MyNewDB state=present login_user=root login_password=password123
+    - name: Create a database backup using dump
+      mysql_db: name=MyDBtest state=dump target=/var/lib/mydbtestbkup.sql login_user=root login_password=password123  

@@ -1,0 +1,9 @@
+--- # cron example
+- hosts: apacheweb
+  user: test
+  sudo: yes
+  connection: ssh
+  tasks:
+    - name: add a cron job to Test user
+      cron: name="list files" minute="0" hour="1" job="ls -al /etc >> /home/test*cronresult.log"
+      

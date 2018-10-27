@@ -1,0 +1,18 @@
+--- # Tag functionalities example
+- hosts: apacheweb
+  user: test
+  sudo: yes
+  connection: ssh
+  gather_facts: no
+  tasks:
+    - name: Install telnet and lynx packages
+      yum: pkg={{Item}} state=latest
+      with_items:
+        - telnet
+        - lynx
+      tags:
+        - packages
+    - name: Verify that telnet was installed
+      raw: yum list installed | grep telnet > /home/test/pkg.log
+      tags:
+        - verification

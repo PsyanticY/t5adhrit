@@ -1,0 +1,12 @@
+--- # Service module example
+- hosts: apacheweb
+  user: test
+  sudo: yes
+  connection: ssh
+  tasks:
+    - name: Install web server
+      action: yum name=httpd state=installed
+    - name: Start the web Service
+      service: name=httpd state=started
+    - name: Enable httpd after reboot
+      service: name=httpd enabled=yes

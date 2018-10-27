@@ -1,0 +1,11 @@
+--- # yum example
+- host: apapcheweb
+  user: test
+  sudo: yes
+  connection: ssh
+  gather_facts: no
+  tasks:
+    - name: Install apache web server
+      action: yum name=httpd state=installed #absent or latest
+    - name: equivalant of yum upgrade
+      action: yum name=* state=latest #absent or latest

@@ -1,0 +1,9 @@
+--- # geturl exampel
+- hosts: all
+  user: test
+  sudo: yes
+  connection: ssh
+  gather_facts: no
+  tasks:
+    - name: Get and download the INI file from the web sever
+      get_url: url=http://tcox1.labserver.com/mytest.ini dest=/home/test/mytest.ini mode=0444

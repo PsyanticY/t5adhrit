@@ -1,0 +1,9 @@
+--- # git example
+- host: apapcheweb
+  user: test
+  sudo: yes
+  connection: ssh
+  gather_facts: no
+  tasks:
+    - name: Checking out a git repo on the remote server
+      git: repo=ssh://test@tcox1/home/test/testrepo dest=/home/test/gitrepo version='somthing' 

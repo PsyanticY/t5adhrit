@@ -1,0 +1,13 @@
+--- # Master Playbook for web servers
+- hosts: apacheweb
+  user: test
+  sudo: yes
+  connection: ssh
+  pre_tasks:
+    - name: when did the role start
+      raw: date > /home/test/startofrole.log
+  roles:
+    - debian_webservers
+  post_task:
+    - name: When did the Role end
+      raw: date > /home/test/endofrole.log

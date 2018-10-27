@@ -1,0 +1,10 @@
+--- # AT example
+- hosts: apacheb
+  user: test
+  sudo: yes
+  connection: ssh
+  gather_facts: no
+  tasks:
+    - name: example of a future command with at module
+      at: command="ls -al /var/log > /home/test/at.log" count=1 units="minutes"
+      ///// to kill the command we match it and we remove the cound and replcae it with state=abscent 

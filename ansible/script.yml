@@ -1,0 +1,8 @@
+--- # script example
+- hosts: webserver
+  user: test
+  sudo: yes
+  connection: ssh
+  gather_facts: no
+  tasks:
+    - script: ~/machin/playbook/system_uptime.syh > uptime.log --some-argument 11234

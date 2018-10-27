@@ -1,0 +1,10 @@
+--- # seboolean example
+- hosts: apachweb
+  user: test
+  sudo: yes
+  connection: ssh
+  gather_facts: no
+  tasks:
+    - name: Change boolean for anonymous writes on the web server
+      seboolean: name=httpd_aron_write state=yes
+      

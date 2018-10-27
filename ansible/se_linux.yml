@@ -1,0 +1,12 @@
+--- # apache_module example
+- hosts: apacheb
+  user: test
+  sudo: yes
+  connection: ssh
+  gather_facts: no
+  tasks:
+    - name: changing se_linux configuration to disabled
+      selinux: state=disable
+# some other settings
+    - name: change se_linux to permissive mode
+      selinux: policy=targeted state=permissive
