@@ -1,6 +1,6 @@
 # Systemd
 
-### systemd and journald how these works
+### systemd and journald, how these works
 
 
 #### systemd essentials
@@ -187,7 +187,7 @@ The following are some of the more common specifiers will be replaced when an in
 - `%H`: The host name of the system that is running the unit.
 - `%%`: This is used to insert a literal percentage sign.
 
-#### Journad
+#### Journald
 
 _Viewing Basic Log Information_: A systemd component called journald collects and manages journal entries from all parts of the system. This is basically log information from applications and the kernel.
 - `journalctl`
