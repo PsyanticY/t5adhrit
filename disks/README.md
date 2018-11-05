@@ -12,6 +12,7 @@
 `mkfs.ext4 /dev/mapper/data`
 * Finally mounted Volume:
 `mount /dev/mapper/data /data`
+
  __Whenever w need to close the encrypted device we can use:__
 `cryptsetup luksClose /dev/mapper/data`
 
