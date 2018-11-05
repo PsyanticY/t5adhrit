@@ -62,6 +62,7 @@ _or_
 
     git rebase -i @~9   # Show the last 9 commits in a text editor
 _An interactive shell will popuo when you can amend, squash, melt, pick, ... your commits as you see fit._
+
     git rebase --continue
 
 _Git will replay the subsequent changes on top of your modified commit. You may be asked to fix some merge conflicts._
