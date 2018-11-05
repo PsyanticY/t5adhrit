@@ -2,7 +2,7 @@
 
 ### What is NixOps
 
-Nixops is the best provisioning tool out there. It can nonetheless improve a lot. it's only handicap is that is only used for NixOS systems.
+Nixops is the best provisioning tool out there. It can nonetheless improve a lot. it's only handicap is that is only used for NixOS systems. Hitherto, NixOps is something that is advertised as the "NixOS-based cloud deployment tool". It basically expands NixOS' approach of deploying a complete system configuration from a declarative specification to networks of machines and instantiates and provisions the required machines (e.g. in an IaaS cloud environment, such as Amazon EC2) automatically if requested.
 
 
 In this [paper](https://nixos.org/~eelco/pubs/charon-releng2013-final.pdf) NixOps was introduced as a tool for automated provisioning and deployment of machines. NixOps has several important characteristics:
@@ -16,6 +16,9 @@ In this [paper](https://nixos.org/~eelco/pubs/charon-releng2013-final.pdf) NixOp
 
 NixOps is a tool for deploying sets of NixOS Linux machines, either to real hardware or to virtual machines.
 It extends NixOS’s declarative approach to system configuration management to networks and adds provisioning.
+
+A NixOps deployment process is driven by one or more network models that encapsulate multiple (partial) NixOS configurations. In a standard NixOps workflow, network models are typically split into a logical network model capturing settings that are machine independent and a physical network model capturing machine specific properties.
+
 
 For example, here is a NixOps specification of a network consisting of two machines — one running Apache httpd,
  the other serving a file system via NFS:
@@ -54,11 +57,18 @@ $ nixops create -d simple network.nix
 $ nixops deploy -d simple
 ```
 
+What the above command does is invoking the Nix package manager to build all the machine configurations, then it transfers their corresponding package closures to the target machines and finally activates the NixOS configurations. The end result is a collection of machines running the new configuration, if all previous steps have succeeded.
+
+If we adapt any of the network models, and run the deploy command again, the system is upgraded. In case of an upgrade, only the packages that have been changed are built and transferred, making this phase as efficient as possible.
+
+
 NixOps makes it easy to abstract over target environments, allowing you to use the same “logical” specification for both testing and production deployments. For instance, to deploy to Amazon EC2, you would just change the deployment.* options to:
 ```
   deployment.targetEnv = "ec2";
   deployment.region = "eu-west-1";
 ```
+
+In addition to deploying system configurations, NixOps can be used to perform many other kinds of system administration tasks that work on machine level( Deploy to the `None` backend (such a drag!)).
 
 ---------------------------------------------------------------------------
 
