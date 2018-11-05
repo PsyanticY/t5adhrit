@@ -55,6 +55,7 @@ _The -d option is an alias for --delete, which only deletes the branch if it has
 
     git push <remote_name> --delete <branch_name>
 _or_
+
     git push <remote_name> :<branch_name>
 
 ## Modify a specific commit/Rewrite history.
@@ -62,4 +63,5 @@ _or_
     git rebase -i @~9   # Show the last 9 commits in a text editor
 _An interactive shell will popuo when you can amend, squash, melt, pick, ... your commits as you see fit._
     git rebase --continue
+
 _Git will replay the subsequent changes on top of your modified commit. You may be asked to fix some merge conflicts._
