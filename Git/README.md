@@ -26,9 +26,9 @@
 ### 1. Amend your last commit:
 
     git commit --amend
-    _An interactive shell will open so you need to change your commit message or keep it_
+_An interactive shell will open so you need to change your commit message or keep it_
 
-### 2. Amending a Commit Without Changing Its Message
+### 2. Amending a Commit Without Changing Its Message;
 
     git commit --amend --no-edit
     git push -f origin some_branch
@@ -49,19 +49,17 @@
 
     git branch -d branch_name
     git branch -D branch_name
-    _The -d option is an alias for --delete, which only deletes the branch if it has already been fully merged in its upstream branch. You could also use -D, which is an alias for --delete --force, which deletes the branch "irrespective of its merged status._
+_The -d option is an alias for --delete, which only deletes the branch if it has already been fully merged in its upstream branch. You could also use -D, which is an alias for --delete --force, which deletes the branch "irrespective of its merged status._
 
 ### 3. Delete Remote Branch:
 
     git push <remote_name> --delete <branch_name>
-    _or_
+_or_
     git push <remote_name> :<branch_name>
 
-## Modify a specific commit.
-
-### 1. Rebase your commits:
+## Modify a specific commit/Rewrite history.
 
     git rebase -i @~9   # Show the last 9 commits in a text editor
-    _An interactive shell will popuo when you can amend, squash, melt, pick, ... your commits as you see fit._
+_An interactive shell will popuo when you can amend, squash, melt, pick, ... your commits as you see fit._
     git rebase --continue
-    _Git will replay the subsequent changes on top of your modified commit. You may be asked to fix some merge conflicts._
+_Git will replay the subsequent changes on top of your modified commit. You may be asked to fix some merge conflicts._
