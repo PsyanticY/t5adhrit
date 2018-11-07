@@ -17,6 +17,8 @@
 `cryptsetup luksClose /dev/mapper/data`
 
 ### Other usefull stuff:
+To check if our system support encryption to disks:
+`grep -i config_dm_crypt /boot/config-$(uname -r)`.
 
 To make sure we have the cryptsetup utility:
 
