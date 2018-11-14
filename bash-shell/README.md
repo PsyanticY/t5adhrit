@@ -2,15 +2,15 @@
 
 ### Shell shortcuts:
 
-`ctrl a` : beginning of line.
-`ctrl e` : end.
-`ctrl k` : delete the front of cursor.
-`ctrl l` : clear the ascreen and leave the current line only.
-`ctrl u` : reverse ctrl k.
-`ctrl w` : clear the last word.
-`ctrl t` : switch spot .
-`ctrl h` : delete one lettre.
-`ctrl d` : delete one letter front .
+- `ctrl a` : beginning of line.
+- `ctrl e` : end.
+- `ctrl k` : delete the front of cursor.
+- `ctrl l` : clear the ascreen and leave the current line only.
+- `ctrl u` : reverse ctrl k.
+- `ctrl w` : clear the last word.
+- `ctrl t` : switch spot .
+- `ctrl h` : delete one lettre.
+- `ctrl d` : delete one letter front .
 
 
 ### Search:
@@ -36,12 +36,12 @@
 
 `cat file* | wc -l`  the number pf lines in all our files.
 
-`grep text file1`.
-`grep -c ^text file1`: match all the lines that begin with hello for -c count.
-`egrep -i 'hello.*world' fole1`: -i for ignore case.
-`egrep -i 'hello|word' file1`: find patterns that contain either hello or world.
-`egrep -v 'hello|world' file1`: -v for do not contain.
-`fgrep = grep -F`: fgrep interpet literally (speed is a concern and we dont use regular expressions).
+- `grep text file1`.
+- `grep -c ^text file1`: match all the lines that begin with hello for -c count.
+- `egrep -i 'hello.*world' fole1`: -i for ignore case.
+- `egrep -i 'hello|word' file1`: find patterns that contain either hello or world.
+- `egrep -v 'hello|world' file1`: -v for do not contain.
+- `fgrep = grep -F`: fgrep interpet literally (speed is a concern and we dont use regular expressions).
 
 wild cards:
 * `*`    : whatever caractere
@@ -50,33 +50,33 @@ wild cards:
 * `[e]`  : files that eend with e  
 * `[0-5]`: range
 
-`cut -f1 -d: passwd`.
-`cut -f7 -d: passwd`.
-`cut -d = -f 4`: cut a string into peices based on a delimiter and extract the 4 field .
+- `cut -f1 -d: passwd`.
+- `cut -f7 -d: passwd`.
+- `cut -d = -f 4`: cut a string into peices based on a delimiter and extract the 4 field .
 
-`sed 's/pattern/replacement/' file1`.
-`sed 's/pattern/replacement/w promotion.txt' file1`: Write the changes to the new file promotion.
-`sed '0,/pattern/s/replacement/promotion' file`.
+- `sed 's/pattern/replacement/' file1`.
+- `sed 's/pattern/replacement/w promotion.txt' file1`: Write the changes to the new file promotion.
+- `sed '0,/pattern/s/replacement/promotion' file`.
 
-`test -f file1 && echo "true"`: Echo true if the file exist.
-`test -f file1 && echo "true"`: Test if it is writable.
+- `test -f file1 && echo "true"`: Echo true if the file exist.
+- `test -f file1 && echo "true"`: Test if it is writable.
 
 __WIP__: sed / awk   check em
 
 
 ### Linux filesystem tree:
 
-`mnt`: is  mount place for devices and drives in general.
-`bin/sbin`: binary system program.
-`proc`: kernel and where the information are stored.
-`var`: where web sites are located.
-`boot`: files for booting.
-`etc`: most programs hold their config files.
-`opt`: install optional additional programs.
-`root`: home folder for root.
-`usr`: (unix system resource).
-`srv`: service data located.
-`sys`: data exported from the kernel about subsystems.
+- `mnt`: is  mount place for devices and drives in general.
+- `bin/sbin`: binary system program.
+- `proc`: kernel and where the information are stored.
+- `var`: where web sites are located.
+- `boot`: files for booting.
+- `etc`: most programs hold their config files.
+- `opt`: install optional additional programs.
+- `root`: home folder for root.
+- `usr`: (unix system resource).
+- `srv`: service data located.
+- `sys`: data exported from the kernel about subsystems.
 
 
 ### User information:
@@ -86,15 +86,15 @@ __WIP__: sed / awk   check em
 - `/etc/skel` typically contains shell configuration files.
 - `/etc/group` contains the group we create.
 
-`identification`: a user say that he is a given user (their can be a false claim) (username).
-`authentication`: in this step the user prove what he claim he is  (password, ...).
-`authorization`: see if the user in allowed to do some given thing   (access control list).
-`authntication`: factors: something u know something u have something u are.
+- `identification`: a user say that he is a given user (their can be a false claim) (username).
+- `authentication`: in this step the user prove what he claim he is  (password, ...).
+- `authorization`: see if the user in allowed to do some given thing   (access control list).
+- `authntication`: factors: something u know something u have something u are.
 
-`getent passwd`: check all the account on a machine.
-`getent networks`: check all the networks .
-`getent services`: check all the services .
-`gpasswd`: name of the group : set a password for the group.
+- `getent passwd`: check all the account on a machine.
+- `getent networks`: check all the networks .
+- `getent services`: check all the services .
+- `gpasswd`: name of the group : set a password for the group.
 
 
 ### Others:
@@ -105,4 +105,4 @@ __WIP__: sed / awk   check em
 
 `chage -l `: list password changes history
 
-`useradd -D`: show the default user conf .
+`useradd -D`: show the default user conf.
