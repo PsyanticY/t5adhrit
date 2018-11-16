@@ -31,9 +31,9 @@ To install it, Run: `yum/apt-get install cryptsetup`
 
 ### Resizing disk with parted
 
-(Expanding a Linux Partition)[https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/expand-linux-partition.html]
+[Expanding a Linux Partition](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/expand-linux-partition.html)
 
-(Extending a Linux File System after Resizing the Volume)[https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/recognize-expanded-volume-linux.html]
+[Extending a Linux File System after Resizing the Volume](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/recognize-expanded-volume-linux.html)
 
 First make sure parted is installed
 
