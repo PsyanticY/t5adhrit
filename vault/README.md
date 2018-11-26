@@ -136,6 +136,8 @@ Let's delete versions 4 and 5: `$ vault kv delete -versions="4,5" secret/custome
 
 To permanently delete all versions of a secret: `$ vault kv destroy -versions=4 secret/customer/acme`
 
+To delete a secret engine (Disable): `vault secrets disable <secret-engine-name>`
+
 Othere stuff [here](https://www.vaultproject.io/docs/secrets/kv/kv-v2.html).
 
 #### Authenticate and delete a token:
@@ -272,6 +274,10 @@ Role ID and Secret ID are like a username and password that a machine or app use
 To generate a new Secret ID:
 
     `$ vault write -f auth/approle/role/<ROLE_NAME>/secret-id`
+
+To Have an idea on the Role run:
+
+    `$ vault read auth/approle/role/<ROLE_NAME>`
 
 Example:
 ```
@@ -478,4 +484,3 @@ fi;
 echo "[INFO] Done."
 exit 0
 ```
-
