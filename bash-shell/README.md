@@ -63,6 +63,15 @@ wild cards:
 
 __WIP__: sed / awk   check em
 
+__Loop through and read tow lines at a timefrom a file__
+
+```bash
+
+while read -r ONE; do
+    read -r TWO
+    echo "ONE: $ONE TWO: $TWO"
+done < testfile.txt
+```
 
 ### Linux filesystem tree:
 
