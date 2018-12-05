@@ -29,6 +29,9 @@ $ lsmod | grep dm_crypt
 ```
 To install it, Run: `yum/apt-get install cryptsetup`
 
+* check filesystem type: `lsblk -f`
+* fix xfs filesystem (make sure it is not mounted) : `xfs_repair /dev/xvdg`
+
 ### Resizing disk with parted
 
 [Expanding a Linux Partition](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/expand-linux-partition.html)
