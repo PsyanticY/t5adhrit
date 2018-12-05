@@ -244,3 +244,14 @@ The arguments can have default values if not specified in the deployment: `insta
 The `?` is for requiring an argument, the "r3.xlarge" is the default argument (or value) given to the variable if no argument is given.
 Assigning arguments a value use set-args: `nixops set-args -d deployment-name --argstr argument1 "DovahAssassins" --argstr argument2 "FeelPain" --arg isTrue true --unset argument3`
 `arg` is for boolean and `argstr` for string `unset` is to remove an argument.
+
+
+### General notes
+
+is using `users.mutableUsers = false;` with no defined user with passowrd or ssh key we will get an error as follow:
+```bash
+Failed assertions:
+- Neither the root account nor any wheel user has a password or SSH authorized key.
+You must set one to prevent being locked out of your system.
+```
+-> Nixops is protecting us cause we won't be able to log in the server as users are not mutable( no ssh-keys /password can be added)

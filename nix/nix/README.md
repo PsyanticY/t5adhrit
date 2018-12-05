@@ -9,3 +9,10 @@ environment.shellInit = ''
   export PYTHONPATH=$PYTHONPATH:"${pkgs.python27Packages.boto}/lib/python2.7/site-packages/"
 '';
 ```
+Add a binary cache to a server: 
+```nix
+nix.binaryCaches = [ "http://cache.nixos.org" "dovahkin.nix"];
+nix.binaryCachePublicKeys = [ "bianrykey of the binary cache" ];
+```
+
+
