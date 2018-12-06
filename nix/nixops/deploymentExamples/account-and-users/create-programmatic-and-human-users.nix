@@ -1,11 +1,17 @@
-{ accounts  # should be something like: import "./path/to/account/config/file.nix" required; a set containing configuration information of accounts
-, usersInfo # import "./path/to/users/config/file.nix"
+{ accountsFile  # nix arg: accountsFile "./path/to/account/config/file.nix" required; a set containing configuration information of accounts
+, usersInfoFile # nix arg: usersInfoFile "./path/to/users/config/file.nix"
 , ...
 }:
 {
-  machine = { lib, ... }:
-  let
+  defaults = { lib, ... }:
 
+  let
+    # todo maybe:
+    # Add a function to create admin users
+
+    # import accounts and users set
+    accounts = import accountsFile;
+    usersInfo = import usersInfoFile;
     # function that will be used to create user's accounts
     CreateAccountUser = user: accountExtraGroups:
     let
@@ -22,7 +28,7 @@
     # function that will be used to create users
     CreateUser = user: extraGroups:
       let
-        userInfo = usersInfo."${user}"; # check if we can create it like the account users
+        userInfo = builtins.getAttr user usersInfo; # check if we can create it like the account users
       in {
         uid = userInfo.uid;
         group = userInfo.group;
@@ -34,11 +40,15 @@
       };
 
       # Get user mapping from programmatic users
-      getUsers = lib.unique (lib.concatMap (n: (builtins.getAttr n accounts).mapping (builtins.attrNames accounts)));
+      getUsers = lib.unique (lib.concatMap (n: (builtins.getAttr n accounts).mapping) (builtins.attrNames accounts));
 
+      getGroups = lib.unique (
+        lib.concatMap (n: lib.singleton ((builtins.getAttr n usersInfo).group)) (builtins.attrNames usersInfo)
+        ++ lib.concatMap (n: lib.singleton ((builtins.getAttr n accounts).group)) (builtins.attrNames accounts)
+        );
       # get for each user the list of accounts he is part of so he can be part of that group
       getAccountsForUser = u:
-        lib.concatMap (n: if lib.elem u accounts."${n}" then [ n ] else []) (builtins.attrNames accounts);
+        lib.concatMap (n: if lib.elem u (builtins.getAttr n accounts).mapping then [ n ] else []) (builtins.attrNames accounts);
 
       # Create a group for each account
 
@@ -52,17 +62,21 @@
     users.users =
       with lib;
       listToAttrs (
-        map (n: nameValuePair n (CreateAccountUser n ["wheel"])) (builtins.attrNames accounts) ++ map (u: nameValuePair u (CreateUser u (getAccountsForUser u))) getUsers
+        map (n: nameValuePair n (CreateAccountUser n ["wheel"])) (builtins.attrNames accounts)
+        ++ map (u: nameValuePair u (CreateUser u (getAccountsForUser u))) getUsers
       );
 
     # Create deploy-* groups, based on the mapping file.
-    users.groups = lib.listToAttrs (map (n: lib.nameValuePair n (createAccountsGroup n)) (builtins.attrNames accounts));
+    users.groups = lib.listToAttrs (
+      map (n: lib.nameValuePair n (createAccountsGroup n)) (builtins.attrNames accounts)
+      ++ map (n: lib.nameValuePair n (createAccountsGroup n)) getGroups
+      );
 
-    # Allow user of deploy-* group to run 'sudo su - deploy-*', to switch to the corresponding deploy-* user.
+    # Allow user of programmatic users group to run 'sudo su - programmatic', to switch to the corresponding programmatic user.
     security.sudo.configFile = ''
-      # Allow users of deploy-* groups to sudo to corresponding deploy-* user.
+      # Allow users of programmatic groups to sudo to corresponding deploy-* user.
       ${lib.concatMapStrings (u: ''
-        %${u} ALL=(ALL) NOPASSWD:/var/setuid-wrappers/su - ${u}
+        %${u} ALL=(ALL) NOPASSWD:/run/wrappers/bin/su - ${u}
       '') (builtins.attrNames accounts)}
     '';
 
@@ -86,4 +100,5 @@
 
         unitConfig.RequiresMountsFor = [ "/data" ];
       }; */
+  };
 }
