@@ -121,6 +121,8 @@ If we have multiple builders (involving multiple cloud provider) and we want to 
 
 Packer fully supports automated provisioning in order to install software onto the machines prior to turning them into images.
 
+We can use `-on-error=ask` when running `packer build` to debug issues.
+
 ### Configuring Provisioners
 
 Provisioners are configured as part of the template. We'll use the built-in shell provisioner that comes with Packer to install Redis.
