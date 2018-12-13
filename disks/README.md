@@ -16,6 +16,13 @@
  __Whenever w need to close the encrypted device we can use:__
 `cryptsetup luksClose /dev/mapper/data`
 
+__Whenever we need to resize the encrypted volume__
+
+```bash
+cryptsetup resize /dev/mapper/data
+xfs_growfs /dev/mapper/data
+```
+
 ### Other usefull stuff:
 To check if our system support encryption to disks:
 `grep -i config_dm_crypt /boot/config-$(uname -r)`.
