@@ -3,6 +3,10 @@
 
 - Build a package: `nix-build -A pipreqs  --option sandbox true`.
 
+- Build a python package: `nix-build -A pythonPackages.mail-parser`.
+
+-> We usually want to build with sandboxing enabled.
+
 - Delete a store path: `nix-store --delete /nix/store/dovahbalblaremismylovekagatoo-somepackagename.tar.gz --ignore-liveness`.
 
 - To query available packages: `nix-env -qaP`.
@@ -22,3 +26,5 @@
 - To remove uninstalled packages: `nix-collect-garbage`.
 
 - Completely delete all cache, unused store: `nix-collect-garbage -d`.
+
+- To start a repl: `nix repl '/path/to/nixpkgs'`
