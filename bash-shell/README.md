@@ -42,6 +42,7 @@
 - `egrep -i 'hello|word' file1`: find patterns that contain either hello or world.
 - `egrep -v 'hello|world' file1`: -v for do not contain.
 - `fgrep = grep -F`: fgrep interpet literally (speed is a concern and we dont use regular expressions).
+- `grep "psyyyy" -irl`: check for psyyy in local directory
 
 wild cards:
 * `*`    : whatever caractere
