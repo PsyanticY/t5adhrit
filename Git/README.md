@@ -66,3 +66,29 @@ _An interactive shell will popuo when you can amend, squash, melt, pick, ... you
     git rebase --continue
 
 _Git will replay the subsequent changes on top of your modified commit. You may be asked to fix some merge conflicts._
+
+## Add a changed file to an older (not last) commit in Git
+
+* _Store the changes we added_
+
+    git stash
+
+* _See last commits (10 last in this example)_
+
+    git rebase -i HEAD~10
+
+* _Mark the commit we wanna use with `pick`_
+
+* _Save the rebase file therefore git will drop you out to fix your file/commit_
+
+* _Pop the stashed changes_
+
+    git stash pop
+
+* _add the file with git add . and amend the commit_
+
+    git commit --amend
+
+* _Rewrite the rest of the commits against the new one_
+
+    git rebase --continue
