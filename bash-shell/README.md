@@ -116,3 +116,19 @@ done < testfile.txt
 `chage -l `: list password changes history
 
 `useradd -D`: show the default user conf.
+
+### Log rotation
+
+https://www.networkworld.com/article/3218728/linux/how-log-rotation-works-with-logrotate.html
+
+### CSRF
+
+http://opensourceforu.com/2010/11/securing-apache-part-3-xsrf-csrf/
+
+### Multipathd
+
+https://www.thegeekdiary.com/beginners-guide-to-device-mapper-dm-multipathing/
+
+### ssl
+
+Testing SSL: `openssl s_client -connect www.feistyduck.com:443`

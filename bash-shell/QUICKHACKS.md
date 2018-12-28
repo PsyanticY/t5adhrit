@@ -7,7 +7,7 @@
                         sed -i 's/^/#/g' /example/file/here.txt
 
 * Uncomment
- 
+
                         sed -i 's/^#//g' /example/file/here.txt
 
 * Manipulate a varibale
@@ -16,7 +16,7 @@
 
 * Log as sshd using bash to check if sshd can open `authorized_keys`
 
-                       su - sshd -s /bin/bash 
+                       su - sshd -s /bin/bash
 
 * Create a dummy file with a given size on the disk:
 
@@ -30,14 +30,14 @@
 
                        free -g
 
-* Disk 
-  
+* Disk
+
 		       lsblk
 
 * CPU cores
                        lscpu (multiply Sockets \* Cores per socket)
 
-* abourt command after some time 
+* abourt command after some time
 
                        timeout 5 My_command
 
@@ -61,11 +61,16 @@
 
                       yum search ldap
 
-* Clear cache 
+* Clear cache
 
                       yum clean all
 
-## IO 
+* Install DNF
+
+                      https://www.ostechnix.com/install-dnf-centos-7/
+
+
+## IO
 
 _You cannot safely write to a file while reading, it is better to read the file into memory, update it, and rewrite it to file._
 

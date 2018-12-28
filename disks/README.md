@@ -39,6 +39,13 @@ To install it, Run: `yum/apt-get install cryptsetup`
 * check filesystem type: `lsblk -f`
 * fix xfs filesystem (make sure it is not mounted) : `xfs_repair /dev/xvdg`
 
+### Mount NFS filesystem:
+
+```shell
+yum install nfs-utils nfs-utils-lib
+mount nfsserverIPAdress:/home/ /home/nfs_home
+```
+
 ### Resizing disk with parted
 
 [Expanding a Linux Partition](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/expand-linux-partition.html)
