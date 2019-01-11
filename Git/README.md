@@ -71,11 +71,11 @@ _Git will replay the subsequent changes on top of your modified commit. You may 
 
 * _Store the changes we added_
 
-    git stash
+	    git stash
 
 * _See last commits (10 last in this example)_
 
-    git rebase -i HEAD~10
+ 	   git rebase -i HEAD~10
 
 * _Mark the commit we wanna use with `pick`_
 
@@ -83,12 +83,27 @@ _Git will replay the subsequent changes on top of your modified commit. You may 
 
 * _Pop the stashed changes_
 
-    git stash pop
+	    git stash pop
 
 * _add the file with git add . and amend the commit_
 
-    git commit --amend
+	    git commit --amend
 
 * _Rewrite the rest of the commits against the new one_
 
-    git rebase --continue
+	    git rebase --continue
+
+## Git config file
+
+It is usually found at `~/.gitconfig`.
+
+This is my conf file:
+
+				[user]
+					email = iuns@outlook.fr
+					name = PsyanticY
+				[core]
+					editor = vim
+				[alias]
+					pf = push -f
+
