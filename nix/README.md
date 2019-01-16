@@ -1,5 +1,6 @@
 # Quick tip sand tricks
 
+## Nix 
 
 - Build a package: `nix-build -A pipreqs  --option sandbox true`.
 
@@ -28,3 +29,13 @@
 - Completely delete all cache, unused store: `nix-collect-garbage -d`.
 
 - To start a repl: `nix repl '/path/to/nixpkgs'`
+
+## NixOps
+
+- Get device mapping to deploy from snaps: `nixoos show-physical -d nagatoPain --backup xxxxxxxxxxxx`.
+
+- Take a backup with filesystem: `nixops backup -d nagatoPain`.
+
+- Take backup with freeze (works only for xfs) `nixops backup -d nixos-hardened-image --freeze`.
+
+- Start a nixops dev-shell: `./dev-shell  -I channel:nixos-18.09` (use the channnel you want ofc).
