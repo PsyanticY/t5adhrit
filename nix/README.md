@@ -34,8 +34,14 @@
 
 - Get device mapping to deploy from snaps: `nixoos show-physical -d nagatoPain --backup xxxxxxxxxxxx`.
 
-- Take a backup with filesystem: `nixops backup -d nagatoPain`.
+- Take a backup: `nixops backup -d nagatoPain`.
 
-- Take backup with freeze (works only for xfs) `nixops backup -d nixos-hardened-image --freeze`.
+- Take backup with freeze (works only for xfs) `nixops backup -d nagatoPain --freeze`.
+
+- Show backup status: `nixops backup-status -d nagatoPain`
+
+- Show latest backup status: `nixops backup-status -d nagatoPain --latest`.
+
+- Get status of a given backupid: `nixops backup-status -d nagatoPain --backupid`
 
 - Start a nixops dev-shell: `./dev-shell  -I channel:nixos-18.09` (use the channnel you want ofc).
