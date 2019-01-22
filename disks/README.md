@@ -20,7 +20,7 @@ __Whenever we need to resize the encrypted volume__
 
 ```bash
 cryptsetup resize /dev/mapper/data
-xfs_growfs /dev/mapper/data
+xfs_growfs /disk/mounted/path
 ```
 
 ### Other usefull stuff:
