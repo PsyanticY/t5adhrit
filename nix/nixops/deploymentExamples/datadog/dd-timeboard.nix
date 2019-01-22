@@ -15,12 +15,13 @@ let
   DiskIOMetrics = ["system.io.r_s" "system.io.w_s"];
   systemMetrics = ["system.cpu.iowait" "system.cpu.idle" "system.swap.used" "system.swap.free" "system.mem.free" "system.mem.used"]; # CPU RAM and SWAP
   totalMemoryUsage = ["system.mem.total" "system.swap.total"];
-
+  listOfPossibleDevices = [ "xvdf" "xvdg" "xvdh" "xvdi" "xvdj" "xvdk" "xvdl" "xvdm" "xvdn" "xvdo" "xvdp" "xvdq"];
+  
   # this assumes that any disk other than the root one is encrypted.
   diskMetricQuery = {device, metric}:
     {
       # this is kinda of crappy but yeah 
-      q= if device == "xvdf" || device == "xvdg" || device == "xvdh" || device == "xvdi" || device == "xvdl" || device == "xvdk"
+      q= if builtins.any (ac: device == ac) (listOfPossibleDevices)
         then "avg:${metric}{$Deployment,device:/dev/mapper/${device}} by {host}"
         else "avg:${metric}{$Deployment,device:/dev/disk/by-label/nixos} by {host}";
       aggregator="avg";
@@ -55,7 +56,7 @@ let
       title = "${metric} for the ${device} device";#for ${map (x: (x + " ")) device}"; FIXME
       definition = builtins.toJSON {
         requests = [{
-          q = if device == "xvdf" || device == "xvdg" || device == "xvdh" || device == "xvdi" || device == "xvdl" || device == "xvdk"
+          q = if builtins.any (ac: device == ac) (listOfPossibleDevices)
             then "top(max:${metric}{$Deployment,device:/dev/mapper/${device}} by {host}, 10, 'max', 'desc')"
             else "top(max:${metric}{$Deployment,device:/dev/disk/by-label/nixos} by {host}, 10, 'max', 'desc')";
         }];
