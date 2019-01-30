@@ -49,6 +49,9 @@
 
                        entre ~.
 
+* Allocate a file with a given size.
+
+		       	fallocate -l $((980*1024*1024)) dovah.txt
 
 ## Package manager
 
