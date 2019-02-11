@@ -21,3 +21,7 @@ if 'key' in dict:
 else:
    print "the key does not exist"
 ```
+
+### All you need to know to get started with jinja and templating
+
+https://medium.com/@jasonrigden/jinja2-templating-engine-tutorial-4bd31fb4aea3
