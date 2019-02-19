@@ -20,6 +20,28 @@
 
     git push
 
+## Tagging
+
+### 1. Listing Tags
+
+    git tag
+or
+    git tag -l "v1.8.5*"
+
+### 2. Adding tags
+
+    git tag -a v1.4 -m "my version 1.4"
+
+### 3. Deleting Tags
+
+    git tag -d v1.4
+
+### 4. push a tag
+
+    git push origin <tag_name>
+or
+    git push --tags
+
 
 ## Adding more changes to your last commit.
 
@@ -34,7 +56,7 @@ _An interactive shell will open so you need to change your commit message or kee
     git push -f origin some_branch
 
 ### 3. Just change your commit message:
-
+0.3.0
     git commit --amend -m "Your new commit message"
     git push -f origin some_branch
 
