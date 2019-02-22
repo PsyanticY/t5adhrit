@@ -45,3 +45,5 @@
 - Get status of a given backupid: `nixops backup-status -d nagatoPain --backupid`
 
 - Start a nixops dev-shell: `./dev-shell  -I channel:nixos-18.09` (use the channnel you want ofc).
+
+- Run nixops test for ec2: `AWS_ACCESS_KEY_ID=default  python2  tests.py tests.functional -A ec2 --verbose`
