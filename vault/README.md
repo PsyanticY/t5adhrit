@@ -484,3 +484,8 @@ fi;
 echo "[INFO] Done."
 exit 0
 ```
+
+## usefull quick links
+
+[AppRole API](https://www.vaultproject.io/api/auth/approle/index.html)
+[Token API](https://www.vaultproject.io/api/auth/token/index.html)
