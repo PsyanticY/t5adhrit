@@ -47,3 +47,15 @@
 - Start a nixops dev-shell: `./dev-shell  -I channel:nixos-18.09` (use the channnel you want ofc).
 
 - Run nixops test for ec2: `AWS_ACCESS_KEY_ID=default  python2  tests.py tests.functional -A ec2 --verbose`
+
+## Repl
+
+- Evaluate and expressions:
+
+			nix-repl> f
+			[ { ... } { ... } ]
+
+=>
+
+			nix-repl> :p f
+			[ { z = "a"; } { z = "b"; } ]
