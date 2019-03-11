@@ -131,4 +131,6 @@ https://www.thegeekdiary.com/beginners-guide-to-device-mapper-dm-multipathing/
 
 ### ssl
 
-Testing SSL: `openssl s_client -connect www.feistyduck.com:443`
+- Testing SSL: `openssl s_client -connect www.feistyduck.com:443`
+
+- Checking certificate : `openssl x509 -in cert-name.crt -text -noout`
