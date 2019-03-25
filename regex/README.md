@@ -1,5 +1,5 @@
 
-# Regex
+# Regex Intro
 
 Def: generalize a pattern, search and match that pattern
 
@@ -39,3 +39,26 @@ Regex are based on 2 algorithmes:
     - awk
 
 -> Newer versions of `grep` and `awk` use both.
+
+## Regex standards
+
+IEEE POSIX standards: DFA friendly, implements three standards:
+    - BRE
+    - ERE
+    - SRE
+  * ERE builds off BRE
+
+PCRE Standards: Perl Compatible Regex Expressions:
+  * used by other standards such as Java, python, .net .
+  * There is some differences between Perl active implementation and PCRE
+  * NFA minded
+
+
+# Regex
+
+## Matching word and caracters
+
+[ABD]: match these three capital caracters.
+[A-D]: match the range of caracters from A to D
+\W   : Match a non word caracter ( not A-Z, a-z, 0-9).
+\w   : Match a word Caracter (A-Z, a-z, 0-9), each instance of \w is a single caracter.
