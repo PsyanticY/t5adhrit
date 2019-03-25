@@ -62,3 +62,6 @@ PCRE Standards: Perl Compatible Regex Expressions:
 [A-D]: match the range of caracters from A to D
 \W   : Match a non word caracter ( not A-Z, a-z, 0-9).
 \w   : Match a word Caracter (A-Z, a-z, 0-9), each instance of \w is a single caracter.
+\D   : Match a non digit caracter
+\d   : Match a single digit caracter.
+[5-9]: Match a range of numbers( from 5 to 9 )
