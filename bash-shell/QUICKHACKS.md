@@ -87,3 +87,19 @@ if line == "; Include this text\n":
 line = line + "Include below\n"
 out_file.write(line)
 ```
+
+## Make sure you are sourcing a file not executing it
+
+```bash
+if [[ "${BASH_SOURCE[0]}" == "${0}" ]]; then
+  echo "script ${BASH_SOURCE[0]} is being executed, please source it instead ..."
+  exit 1
+fi
+```
+
+## Read secret and normal input
+
+```bash
+read -p "Visible variable " visible
+read -s -p "Enter Password: " passwd
+```
