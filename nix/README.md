@@ -20,6 +20,8 @@
 
 - To install from a specific version of nixpkgs: `nix-env -i vulnix -I nixpkgs=channel:nixos-18.09`
 
+- Open a nix shell with a package: `nix-shell -p cfnflip -I nixpkgs=channel:nixos-19.03`
+
 - To update all stuff: `nix-env -u`.
 
 - To update a package and it's dependencies run: `nix-env -uA pcre-8.41`.
