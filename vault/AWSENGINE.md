@@ -79,3 +79,7 @@ vault write aws-access/roles/deploy \
 ```bash
 vault write aws-access/sts/deploy ttl=60m
 ```
+
+=> Create a script to manually do all the jobs which can be easely done with curl and jq commands.
+
+5- if vault is integrated with ldap we can just create a group and grant it the ability to generate tokens like in 4
