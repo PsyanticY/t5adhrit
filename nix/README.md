@@ -34,6 +34,9 @@
 
 - To start a repl: `nix repl '/path/to/nixpkgs'`
 
+- To check a package declaration: `nix edit nixpkgs.ossec`. (use EDITOR to set editors for edit)
+
+
 ## NixOps
 
 - Get device mapping to deploy from snaps: `nixoos show-physical -d nagatoPain --backup xxxxxxxxxxxx`.
@@ -51,6 +54,8 @@
 - Start a nixops dev-shell: `./dev-shell  -I channel:nixos-18.09` (use the channnel you want ofc).
 
 - Run nixops test for ec2: `AWS_ACCESS_KEY_ID=default  python2  tests.py tests.functional -A ec2 --verbose`
+
+- Dump closure paths: `nixops dump-nix-paths -d ec2-killer`.
 
 ## Repl
 
