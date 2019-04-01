@@ -59,9 +59,30 @@ PCRE Standards: Perl Compatible Regex Expressions:
 ## Matching word and caracters
 
 [ABD]: match these three capital caracters.
+
 [A-D]: match the range of caracters from A to D
+
 \W   : Match a non word caracter ( not A-Z, a-z, 0-9).
+
 \w   : Match a word Caracter (A-Z, a-z, 0-9), each instance of \w is a single caracter.
+
 \D   : Match a non digit caracter
+
 \d   : Match a single digit caracter.
+
 [5-9]: Match a range of numbers( from 5 to 9 )
+
+\s   : Match a whitespace
+
+\s\s+: Match any kind of whitespace (tab, carriage return, ...)
+
++    : Repeat the previous token one or more times
+
+\t   : A hard tab
+
+
+# sed
+
+`-i`  : Edit and replace the file.
+
+`-r`  : Use extended regular expressions.
