@@ -16,9 +16,9 @@ Def: generalize a pattern, search and match that pattern
 
 ## Where to test them:
 
-* (regexr)[https://regexr.com/]
-* (regex101)[https://regex101.com/]
-* (regexpal)[https://www.regexpal.com/]
+* [regexr](https://regexr.com/)
+* [regex101](https://regex101.com/)
+* [regexpal](https://www.regexpal.com/)
 * ...
 
 
@@ -80,9 +80,28 @@ PCRE Standards: Perl Compatible Regex Expressions:
 
 `\t`   : A hard tab
 
+`^`    : Beginning of a line
+
+`$`    : End of a line
+
+`\b`   : Word boundery: (opening and closing will make sure the word in between won't be followed/started by a word)
+
+`\B`   : Word bondery: (sma thing but it is the opposite of `\b`)
+
+`()`   : Define a group
+
+`|`    : Define alteration (or)
+
+`?`    : make the last caraceter optional
+
+`*`    : repeat the previous caracter 1 or more times
+
+`.`    : wild card that much any caracter
 
 # sed
 
 `-i`   : Edit and replace the file.
 
 `-r`   : Use extended regular expressions.
+
+
