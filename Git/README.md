@@ -99,7 +99,7 @@ _Git will replay the subsequent changes on top of your modified commit. You may 
 
  	   git rebase -i HEAD~10
 
-* _Mark the commit we wanna use with `pick`_
+* _Mark the commit we wanna use with `edit`_
 
 * _Save the rebase file therefore git will drop you out to fix your file/commit_
 
