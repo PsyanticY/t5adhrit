@@ -121,6 +121,8 @@ Note: we need to make sure the look behind is with a static length or it will no
 
 We can sue conditonals with if else or even nested conditionals.(too complicated to use for me though)
 
+![](if-else.JPG)
+
 # sed
 
 `-i`   : Edit and replace the file.
