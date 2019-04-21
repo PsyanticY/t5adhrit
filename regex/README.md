@@ -98,6 +98,29 @@ PCRE Standards: Perl Compatible Regex Expressions:
 
 `.`    : wild card that much any caracter
 
+`()`   : Matching group.
+
+## look ahead
+
+* Allow to precise what should come after our regex.
+
+`(?=)` : Match an expresion in a group but do not capture it. (works as a boundary).
+`?=`   : Tells the matching group we want to match a look ahead
+`?!`   : Negative look ahead. (make sure if matches anything but the provided expression)
+
+## look behind
+
+`(?<=)` : Match an expresion in a group but do not capture it. (works as a boundary).
+`?<=`   : Tells the matching group we want to match a look behind
+`?<!`   : Negative look behind. (make sure if matches anything but the provided expression)
+
+Note: we need to make sure the look behind is with a static length or it will not work
+
+
+## Conditionals
+
+We can sue conditonals with if else or even nested conditionals.(too complicated to use for me though)
+
 # sed
 
 `-i`   : Edit and replace the file.
