@@ -70,3 +70,7 @@
 
 			nix-repl> :p f
 			[ { z = "a"; } { z = "b"; } ]
+
+## other
+
+- nixpkgs-channel follow nixpkhs but it merges packages after they get built and tested
