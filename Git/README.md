@@ -140,4 +140,5 @@ This is my conf file:
 					editor = vim
 				[alias]
 					pf = push -f
+                                        st = status
 
