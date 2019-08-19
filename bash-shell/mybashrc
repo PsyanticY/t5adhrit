@@ -32,7 +32,8 @@ echo -e "\033[0;37m            Dovahkiin, Dovahkiin, naal ok zin los vahriin    
 echo -e "\033[0;37m                 Wah dein vokul mahfaeraak ahst vaal!                  "
 echo -e "\033[0;37m          Ahrk fin norok paal graan fod nust hon zindro zaan           "
 echo -e "\033[0;37m                 Dovahkiin, fah hin kogaan mu draal!                   "
-
+echo -e "\033[0;37m-----------------------------------------------------------------------"
+echo -e "\033[0;37m        Four great suffering: birth, aging, illness and death          "
 
 # If not running interactively, don't do anything
 case $- in
