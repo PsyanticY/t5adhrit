@@ -48,7 +48,7 @@ wild cards:
 * `*`    : whatever caractere
 * `?`    : one caractere
 * `[rR]` : the first field of the file name will contains either r or R
-* `[e]`  : files that eend with e  
+* `[e]`  : files that eend with e
 * `[0-5]`: range
 
 - `cut -f1 -d: passwd`.
@@ -136,3 +136,7 @@ https://www.thegeekdiary.com/beginners-guide-to-device-mapper-dm-multipathing/
 - Checking certificate : `openssl x509 -in cert-name.crt -text -noout`
 
 - Checking certificate (just the date): `openssl x509 -in cert-name.crt -text -noout`
+
+### Getting users from
+
+- `cut -d: -f1 /etc/passwd` or  `awk -F: '{ print $1}' /etc/passwd`

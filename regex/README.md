@@ -5,7 +5,7 @@ Def: generalize a pattern, search and match that pattern
 
 ## Where to use Regex:
 
-* Programming: 
+* Programming:
     - Python
     - perl
     - ...
