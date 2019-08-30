@@ -36,6 +36,8 @@
 
 - To check a package declaration: `nix edit nixpkgs.ossec`. (use EDITOR to set editors for edit)
 
+- To check which nixpkgs version you have by default: `nix-instantiate --eval --expr 'builtins.readFile <nixpkgs/.version>'`.
+
 
 ## NixOps
 

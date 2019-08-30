@@ -32,3 +32,39 @@ nix.binaryCachePublicKeys = [ "bianrykey of the binary cache" ];
 - there are two common formats for derivations in `default.nix`: derivation, and `callPackage` derivation. You can't `nix-build` the latter. Almost any package in nixpkgs is written in this style, see hello. But you can `nix-build -E 'with import <nixpkgs> { }; callPackage ./path/to/default.nix { }'` as a workaround. `nix-shell` also supports this -E argument.
 
 - `release.nix`: Hydra jobset declaration.
+
+
+## hydra vs nix-build
+
+These examples are taken from [here](https://github.com/Gabriel439/haskell-nix/tree/master/project0)
+
+to build a package with `nix-build` we just need something like this
+```nix
+let
+  pkgs = import <nixpkgs> { };
+
+in
+  pkgs.haskellPackages.callPackage ./project0.nix { }
+```
+
+For hydra compatibility we need to change it like this:
+```
+let
+  pkgs = import <nixpkgs> { };
+
+in
+  { project0 = pkgs.haskellPackages.callPackage ./project0.nix { };
+  }
+```
+
+=> the difference is that the release.nix now returns a set (the Nix term for a dictionary) of derivations. This "set" only has one "attribute" (i.e. key) named project0 whose value is the derivation to build our Haskell project.The main motivation for this change is that Hydra (Nix's continuous integration server) requires that project build files are sets of derivations with one attribute per build product.
+
+we can build that using this: `nix-build release2.nix` or by specifying which project using: `nix-build --attr project0 release2.nix`
+
+to open a nix shell out of this release2.nix file we run `nix-shell --attr project0.env release2.nix`
+
+We can also create a shell.nix file
+```nix
+(import ./release2.nix).project0.env
+```
+and just run `nix-shell`
