@@ -1,6 +1,6 @@
 # Quick tip sand tricks
 
-## Nix 
+## Nix
 
 - Build a package: `nix-build -A pipreqs  --option sandbox true`.
 
@@ -37,6 +37,8 @@
 - To check a package declaration: `nix edit nixpkgs.ossec`. (use EDITOR to set editors for edit)
 
 - To check which nixpkgs version you have by default: `nix-instantiate --eval --expr 'builtins.readFile <nixpkgs/.version>'`.
+
+- View all transitive dependencies for a given Nix package: `nix-store --query --requisites`
 
 
 ## NixOps
