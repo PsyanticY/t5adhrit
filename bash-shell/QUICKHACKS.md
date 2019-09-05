@@ -96,6 +96,9 @@ if [[ "${BASH_SOURCE[0]}" == "${0}" ]]; then
   exit 1
 fi
 ```
+## run a script from within another and make it unrelated to the first one
+
+To run it in the background silenced: `firefox </dev/null &>/dev/null &`
 
 ## Read secret and normal input
 
