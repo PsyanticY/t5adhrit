@@ -1,0 +1,30 @@
+<head>
+    <script type="text/javascript" charset="utf8" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="//cdn.datatables.net/1.10.16/css/jquery.dataTables.css">
+    <script type="text/javascript" charset="utf8" src="//cdn.datatables.net/1.10.16/js/jquery.dataTables.js"></script>
+</head>
+
+<h1>{{.Title}}</h1>
+
+<table id="fancytable" class="display">
+    <col width="35%">
+    <col width="65%">
+    <thead>
+        <tr>
+            <th>Title</th>
+            <th>Keywords</th>
+        </tr>
+    </thead>
+    <tbody>
+        {{ range $key, $value := .News }}
+         <tr>
+            <td><a href="{{ $value.Location }}" target='_blank'>{{ $key }}</td>
+            <td>{{ $value.Keyword }}</td>
+        </tr>
+        {{ end }}
+    </tbody>
+</table>
+
+<script>$(document).ready(function() {
+    $('#fancytable').DataTable();
+} );</script>
