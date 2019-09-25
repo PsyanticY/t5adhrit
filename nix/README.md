@@ -40,6 +40,8 @@
 
 - View all transitive dependencies for a given Nix package: `nix-store --query --requisites`
 
+- Install package form nix store: `nix-env -i /nix/store/blabla` 
+
 
 ## NixOps
 
