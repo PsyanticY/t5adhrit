@@ -26,6 +26,8 @@ Nice introductory video: https://www.youtube.com/watch?v=w2E1C8u_uY0
 
 - Open a nix shell with a package: `nix-shell -p cfnflip -I nixpkgs=channel:nixos-19.03`
 
+- Open a nix shell purely with a package: `nix-shell -p telegraf --pure`
+
 - To update all stuff: `nix-env -u`.
 
 - To update a package and it's dependencies run: `nix-env -uA pcre-8.41`.
