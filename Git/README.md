@@ -22,13 +22,13 @@
     
 ## Reabsing your branch on top of newest changes
 
- git remote add upstream git://github.com/nixos/nixops
-  git fetch upstream
-  git pull upstream master
-  git push
-  git checkout support_persistant_spot 
-   git rebase master
-   git push -f 
+	git remote add upstream git://github.com/nixos/nixops
+  	git fetch upstream
+  	git pull upstream master
+  	git push
+  	git checkout support_persistant_spot 
+   	git rebase master
+   	git push -f 
 
 
 
