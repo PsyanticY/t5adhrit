@@ -140,3 +140,7 @@ https://www.thegeekdiary.com/beginners-guide-to-device-mapper-dm-multipathing/
 ### Getting users from
 
 - `cut -d: -f1 /etc/passwd` or  `awk -F: '{ print $1}' /etc/passwd`
+
+### Warmup
+
+- ```nohup seq 0 $(($(cat /sys/block/xvdf/size) / (1 << 10))) | xargs -n1 -P `nproc` -I {} sudo dd if=/dev/xvdf of=/dev/null skip={}k count=1 bs=512 > warm.txt 2>&1 & ```
