@@ -86,3 +86,10 @@ Nice introductory video: https://www.youtube.com/watch?v=w2E1C8u_uY0
 ## other
 
 - nixpkgs-channel follow nixpkhs but it merges packages after they get built and tested
+
+- run a python script, add the following to the header:
+
+```python
+#! /usr/bin/env nix-shell
+#! nix-shell -i python3 -p python3Packages.boto3 -I channel:nixos-19.09
+```
