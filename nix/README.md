@@ -2,6 +2,8 @@
 
 Nice introductory video: https://www.youtube.com/watch?v=w2E1C8u_uY0
 
+A tour of nix: https://nixcloud.io/tour/?id=1
+
 # Quick tip sand tricks
 
 ## Nix
