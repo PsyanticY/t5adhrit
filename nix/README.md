@@ -4,7 +4,7 @@ Nice introductory video: https://www.youtube.com/watch?v=w2E1C8u_uY0
 
 A tour of nix: https://nixcloud.io/tour/?id=1
 
-Nix expression language: https://medium.com/@MrJamesFisher/nix-by-example-a0063a1a4c55
+Nix expression language: [this](https://nixos.wiki/wiki/Nix_Expression_Language) and [this](https://medium.com/@MrJamesFisher/nix-by-example-a0063a1a4c55)
 
 # Quick tip sand tricks
 
