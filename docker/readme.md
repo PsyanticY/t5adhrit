@@ -1,7 +1,13 @@
 ## Docker
 
 
-Following from this: https://www.digitalocean.com/community/tutorials/how-to-install-and-use-docker-on-ubuntu-18-04
+Resources:
+
+https://www.digitalocean.com/community/tutorials/how-to-install-and-use-docker-on-ubuntu-18-04
+https://www.digitalocean.com/community/tutorials/the-docker-ecosystem-an-overview-of-containerization
+https://www.digitalocean.com/community/tutorials/the-docker-ecosystem-an-introduction-to-common-components
+https://www.digitalocean.com/community/tutorials/how-to-install-docker-compose-on-ubuntu-18-04
+
 
 So after all the repository stuff, we install Docker
 
@@ -68,3 +74,47 @@ After commiting, we need to login to the docker repository
 Then we push
 
         docker push docker-registry-username/docker-image-name
+
+
+### Docker ecosystem
+
+Docker’s main advantages are:
+
+- *Lightweight resource utilization*: instead of virtualizing an entire operating system, containers isolate at the process level and use the host’s kernel.
+- *Portability*: all of the dependencies for a containerized application are bundled inside of the container, allowing it to run on any Docker host.
+- *Predictability*: The host does not care about what is running inside of the container and the container does not care about which host it is running on.  The interfaces are standardized and the interactions are predictable.
+
+Typically, when designing an application or service to use Docker, it works best to break out functionality into individual containers, a design decision known as service-oriented architecture.
+
+Docker files:
+
+Used for Repeatable, Consistent Builds
+
+Dockerfiles are simple build files that describe how to create a container image from a known starting point. They provide:
+
+* Can be version controlled
+* Accountability: If you plan on sharing your images, it is often a good idea to provide the Dockerfile that created the image as a way for other users to audit the process.
+* Flexibility: Creating images from a Dockerfile allows you to override the defaults that interactive builds are given.
+
+
+
+The Architecture of Containerized Applications:
+
+Generally, containerized applications work best when implementing a service-oriented design.
+
+Service-oriented applications break the functionality of a system into discrete components that communicate with each other over well-defined interfaces. Container technology itself encourages this type of design because it allows each component to scale out or upgrade independently.
+
+
+
+Applications implementing this type of design should have the following qualities:
+
+* They should not care about or rely on any specifics of the host system
+* Each component should provide consistent APIs that consumers can use to access the service
+* Each service should take cues from environmental variables during initial configuration
+* Application data should be stored outside of the container on mounted volumes or in data containers
+
+
+
+Using a Docker Registry for Container Management
+
+Once your application is split into functional components and configured to respond appropriately to other containers and configuration flags within the environment, the next step is usually to make your container images available through a registry
