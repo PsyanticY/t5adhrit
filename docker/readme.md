@@ -86,24 +86,11 @@ Docker’s main advantages are:
 
 Typically, when designing an application or service to use Docker, it works best to break out functionality into individual containers, a design decision known as service-oriented architecture.
 
-Docker files:
-
-Used for Repeatable, Consistent Builds
-
-Dockerfiles are simple build files that describe how to create a container image from a known starting point. They provide:
-
-* Can be version controlled
-* Accountability: If you plan on sharing your images, it is often a good idea to provide the Dockerfile that created the image as a way for other users to audit the process.
-* Flexibility: Creating images from a Dockerfile allows you to override the defaults that interactive builds are given.
-
-
-
 The Architecture of Containerized Applications:
 
 Generally, containerized applications work best when implementing a service-oriented design.
 
 Service-oriented applications break the functionality of a system into discrete components that communicate with each other over well-defined interfaces. Container technology itself encourages this type of design because it allows each component to scale out or upgrade independently.
-
 
 
 Applications implementing this type of design should have the following qualities:
@@ -112,7 +99,6 @@ Applications implementing this type of design should have the following qualitie
 * Each component should provide consistent APIs that consumers can use to access the service
 * Each service should take cues from environmental variables during initial configuration
 * Application data should be stored outside of the container on mounted volumes or in data containers
-
 
 
 Using a Docker Registry for Container Management
