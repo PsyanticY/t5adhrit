@@ -245,3 +245,66 @@ To clean up all terminated containers
 
                 docker container prune
 
+## Container Logs and Process management
+
+lists the processes running within a container:
+
+                docker top test-nginx
+
+Resource limitation for a docker container: Docker achieve resource isolation as well as assign a certain amount of CPU Core, RAM or Memory to a running container.
+
+to do that, use: 
+
+                docker container run -d --name test-nginx --cpu-shares 512 --memory 128M -p 8080:80 nginx
+                or
+                docker container update --cpu-shares 512 --memory 128M --memory-swap 256M test-nginx
+
+Viewing real time logs in a container: 
+
+                docker container logs -f nginx-test
+
+view logs in general: 
+
+                docker logs [OPTIONS] CONTAINER
+
+## Data management
+
+We have 2 ways to manage data in docker, bind mounts or docker data volume
+
+By defaults; files created inside a container are stored on a writable container layer:
+ - data do not persist after the container exit
+ - can't move data somewhere else
+ - Writing into a container’s writable layer reduces performance
+
+
+__Volumes__: are stored in a part of the host filesystem which is managed by Docker (/var/lib/docker/volumes/ on Linux). Non-Docker processes should not modify this part of the filesystem. Volumes are the best way to persist data in Docker
+__Bind mounts__: may be stored anywhere on the host system. They may even be important system files or directories. Non-Docker processes on the Docker host or a Docker container can modify them at any time.
+__tmpfs__ mounts are stored in the host system’s memory only, and are never written to the host system’s filesystem.
+
+
+common volume commands: 
+
+                docker volume create my-vol
+                docker volume ls
+                docker volume inspect my-vol
+                docker volume rm my-vol
+
+Using a data volume:
+                
+        docker run -d --name=nginxtest --mount source=nginx-vol,destination=/usr/share/nginx/html nginx:latest
+
+Unknown, or tangling volumes can take up a lot of space, take care of them using this: 
+                
+                docker volume prune
+
+To mouunt host directory; use: 
+
+        docker run -d -P --name web -v /src/webapp:/opt/webapp --mount type=bind,source=/src/webapp,target=/opt/webapp training/webapp python app.py
+
+## docker networking 
+
+not eally needed but check: https://jstobigdata.com/docker-network-configuration/
+
+## docker secret
+
+used in conjunction with swarm and compose, which we can sue better alternative so checking secret management there is better. But, check this for basic idea: https://jstobigdata.com/docker/docker-secrets-overview/
