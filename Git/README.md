@@ -127,6 +127,11 @@ _Git will replay the subsequent changes on top of your modified commit. You may 
 
 	    git rebase --continue
 
+
+## push with username 
+
+	    git -c "user.name=user.name" -c "user.email=email@infor.com" commit -am "commit message"
+
 ## Git config file
 
 It is usually found at `~/.gitconfig`.
