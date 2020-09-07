@@ -12,6 +12,7 @@
                 User psyanticy
                 Host *
                 ForwardAgent yes
+                AddKeysToAgent yes
                 StrictHostKeyChecking no
                 CanonicalizeHostname yes
                 CanonicalDomains dovah.kin
