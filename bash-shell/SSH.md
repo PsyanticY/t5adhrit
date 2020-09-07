@@ -9,9 +9,12 @@
 
 - My `.ssh/config` file:
 
-                User nagato.pain
+                User psyanticy
                 Host *
                 ForwardAgent yes
+                StrictHostKeyChecking no
+                CanonicalizeHostname yes
+                CanonicalDomains dovah.kin
 
 - Generate an ssh key:
 
