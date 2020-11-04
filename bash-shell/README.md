@@ -144,3 +144,8 @@ https://www.thegeekdiary.com/beginners-guide-to-device-mapper-dm-multipathing/
 ### Warmup
 
 - ```nohup seq 0 $(($(cat /sys/block/xvdf/size) / (1 << 10))) | xargs -n1 -P `nproc` -I {} sudo dd if=/dev/xvdf of=/dev/null skip={}k count=1 bs=512 > warm.txt 2>&1 & ```
+
+### Rsync
+
+- To sync from the home folder of `ops-user` to the home of `ops-user` in another server:
+`rsync --timeout=7200 -tpogarH --progress --stats /home/ops-user/ ops-user@10.10.10.10:/home/ops-user`
