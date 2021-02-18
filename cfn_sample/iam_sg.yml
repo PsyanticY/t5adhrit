@@ -1,0 +1,264 @@
+AWSTemplateFormatVersion: 2010-09-09
+Description: Template for EMR Cluster Security Elements (Security Groups & IAM)
+## refer to this site for the original and more insights https://docs.openshift.com/container-platform/4.3/installing/installing_aws/installing-aws-user-infra.html
+Parameters:
+  Project:
+    AllowedPattern: ^([a-zA-Z][a-zA-Z0-9\-]{0,26})$
+    MaxLength: 27
+    MinLength: 1
+    ConstraintDescription: Infrastructure name must be alphanumeric, start with a letter, and have a maximum of 27 characters.
+    Description: A short, unique cluster ID used to tag cloud resources and identify items owned or used by the cluster.
+    Type: String
+  VpcCidr:
+    AllowedPattern: ^(([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\.){3}([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])(\/(1[6-9]|2[0-4]))$
+    ConstraintDescription: CIDR block parameter must be in the form x.x.x.x/16-24.
+    Default: 10.0.0.0/16
+    Description: CIDR block for VPC.
+    Type: String
+  VpcId:
+    Description: The VPC-scoped resources will belong to this VPC.
+    Type: AWS::EC2::VPC::Id
+
+Metadata:
+  AWS::CloudFormation::Interface:
+    ParameterGroups:
+    - Label:
+        default: "Cluster Information"
+      Parameters:
+      - Project
+    - Label:
+        default: "Network Configuration"
+      Parameters:
+      - VpcId
+      - VpcCidr
+    ParameterLabels:
+      Project:
+        default: "Infrastructure Name"
+      VpcId:
+        default: "VPC ID"
+      VpcCidr:
+        default: "VPC CIDR"
+
+Resources:
+  MasterSecurityGroup:
+    Type: AWS::EC2::SecurityGroup
+    Properties:
+      GroupDescription: Cluster Master Security Group
+      SecurityGroupIngress:
+      - IpProtocol: tcp
+        FromPort: 0
+        ToPort: 65535
+        CidrIp: "11.11.11.11/32"
+      VpcId: !Ref VpcId
+  MasterIngressFromSelfTCP:
+    Type: AWS::EC2::SecurityGroupIngress
+    Properties:
+      GroupId: !GetAtt WorkerSecurityGroup.GroupId
+      SourceSecurityGroupId: !GetAtt WorkerSecurityGroup.GroupId
+      Description: all tcp from self
+      FromPort: 0
+      ToPort: 65535
+      IpProtocol: tcp
+  MasterIngressFromSelfUDP:
+    Type: AWS::EC2::SecurityGroupIngress
+    Properties:
+      GroupId: !GetAtt WorkerSecurityGroup.GroupId
+      SourceSecurityGroupId: !GetAtt WorkerSecurityGroup.GroupId
+      Description: all udp from self
+      FromPort: 0
+      ToPort: 65535
+      IpProtocol: udp
+  MasterIngressFromMasterUDP:
+    Type: AWS::EC2::SecurityGroupIngress
+    Properties:
+      GroupId: !GetAtt MasterSecurityGroup.GroupId
+      SourceSecurityGroupId: !GetAtt MasterSecurityGroup.GroupId
+      Description: all udp from master
+      FromPort: 0
+      ToPort: 65535
+      IpProtocol: udp
+  MasterIngressFromMasterTCP:
+    Type: AWS::EC2::SecurityGroupIngress
+    Properties:
+      GroupId: !GetAtt MasterSecurityGroup.GroupId
+      SourceSecurityGroupId: !GetAtt MasterSecurityGroup.GroupId
+      Description: all tcp from master
+      FromPort: 0
+      ToPort: 65535
+      IpProtocol: tcp
+  MasterIngressFromMasterICMP:
+    Type: AWS::EC2::SecurityGroupIngress
+    Properties:
+      GroupId: !GetAtt MasterSecurityGroup.GroupId
+      SourceSecurityGroupId: !GetAtt MasterSecurityGroup.GroupId
+      Description: all icmp from master
+      FromPort: 0
+      ToPort: 0
+      IpProtocol: icmp
+  MasterIngressFromSelfICMP:
+    Type: AWS::EC2::SecurityGroupIngress
+    Properties:
+      GroupId: !GetAtt WorkerSecurityGroup.GroupId
+      SourceSecurityGroupId: !GetAtt WorkerSecurityGroup.GroupId
+      Description: all icmp from self
+      FromPort: 0
+      ToPort: 0
+      IpProtocol: icmp
+
+  WorkerSecurityGroup:
+    Type: AWS::EC2::SecurityGroup
+    Properties:
+      GroupDescription: Cluster Worker Security Group
+      SecurityGroupIngress:
+      - IpProtocol: tcp
+        FromPort: 22
+        ToPort: 22
+        CidrIp: "54.156.0.100/30"
+      VpcId: !Ref VpcId
+  WorkerIngressFromSelfTCP:
+    Type: AWS::EC2::SecurityGroupIngress
+    Properties:
+      GroupId: !GetAtt WorkerSecurityGroup.GroupId
+      SourceSecurityGroupId: !GetAtt WorkerSecurityGroup.GroupId
+      Description: all tcp from self
+      FromPort: 0
+      ToPort: 65535
+      IpProtocol: tcp
+  WorkerIngressFromSelfUDP:
+    Type: AWS::EC2::SecurityGroupIngress
+    Properties:
+      GroupId: !GetAtt WorkerSecurityGroup.GroupId
+      SourceSecurityGroupId: !GetAtt WorkerSecurityGroup.GroupId
+      Description: all udp from self
+      FromPort: 0
+      ToPort: 65535
+      IpProtocol: udp
+  WorkerIngressFromMasterUDP:
+    Type: AWS::EC2::SecurityGroupIngress
+    Properties:
+      GroupId: !GetAtt MasterSecurityGroup.GroupId
+      SourceSecurityGroupId: !GetAtt MasterSecurityGroup.GroupId
+      Description: all udp from master
+      FromPort: 0
+      ToPort: 65535
+      IpProtocol: udp
+  WorkerIngressFromMasterTCP:
+    Type: AWS::EC2::SecurityGroupIngress
+    Properties:
+      GroupId: !GetAtt MasterSecurityGroup.GroupId
+      SourceSecurityGroupId: !GetAtt MasterSecurityGroup.GroupId
+      Description: all tcp from master
+      FromPort: 0
+      ToPort: 65535
+      IpProtocol: tcp
+  WorkerIngressFromMasterICMP:
+    Type: AWS::EC2::SecurityGroupIngress
+    Properties:
+      GroupId: !GetAtt MasterSecurityGroup.GroupId
+      SourceSecurityGroupId: !GetAtt MasterSecurityGroup.GroupId
+      Description: all icmp from master
+      FromPort: 0
+      ToPort: 0
+      IpProtocol: icmp
+  WorkerIngressFromSelfICMP:
+    Type: AWS::EC2::SecurityGroupIngress
+    Properties:
+      GroupId: !GetAtt WorkerSecurityGroup.GroupId
+      SourceSecurityGroupId: !GetAtt WorkerSecurityGroup.GroupId
+      Description: all icmp from self
+      FromPort: 0
+      ToPort: 0
+      IpProtocol: icmp
+
+  EMRAutoScalingRole:
+    Type: AWS::IAM::Role
+    Properties:
+      AssumeRolePolicyDocument:
+        Version: "2012-10-17"
+        Statement:
+        - Effect: "Allow"
+          Principal:
+            Service: [ "elasticmapreduce.amazonaws.com", "application-autoscaling.amazonaws.com" ]
+          Action:
+          - "sts:AssumeRole"
+      ManagedPolicyArns:
+        - arn:aws:iam::aws:policy/service-role/AmazonElasticMapReduceforAutoScalingRole
+
+  EMRIamRole:
+    Type: AWS::IAM::Role
+    Properties:
+      AssumeRolePolicyDocument:
+        Version: "2012-10-17"
+        Statement:
+        - Effect: "Allow"
+          Principal:
+            Service:
+            - "elasticmapreduce.amazonaws.com"
+          Action:
+          - "sts:AssumeRole"
+      ManagedPolicyArns:
+        - arn:aws:iam::aws:policy/service-role/AmazonElasticMapReduceRole
+
+  EC2EMRIamRole:
+    Type: AWS::IAM::Role
+    Properties:
+      AssumeRolePolicyDocument:
+        Version: "2012-10-17"
+        Statement:
+        - Effect: "Allow"
+          Principal:
+            Service:
+            - "ec2.amazonaws.com"
+          Action:
+          - "sts:AssumeRole"
+      ManagedPolicyArns:
+        - arn:aws:iam::aws:policy/service-role/AmazonElasticMapReduceforEC2Role
+      Policies:
+      - PolicyName: !Join ["-", [!Ref Project, "master", "policy"]]
+        PolicyDocument:
+          Version: "2012-10-17"
+          Statement:
+          - Effect: "Allow"
+            Action:
+              - 'logs:CreateLogGroup'
+              - 'logs:CreateLogStream'
+              - 'logs:PutLogEvents'
+              - 'logs:DescribeLogStreams'
+            Resource: "*"
+
+  MasterInstanceProfile:
+    Type: "AWS::IAM::InstanceProfile"
+    Properties:
+      Roles:
+      - Ref: "EC2EMRIamRole"
+
+  WorkerInstanceProfile:
+    Type: "AWS::IAM::InstanceProfile"
+    Properties:
+      Roles:
+      - Ref: "EC2EMRIamRole"
+
+Outputs:
+  MasterSecurityGroupId:
+    Description: Master Security Group ID
+    Value: !GetAtt MasterSecurityGroup.GroupId
+
+  WorkerSecurityGroupId:
+    Description: Worker Security Group ID
+    Value: !GetAtt WorkerSecurityGroup.GroupId
+
+  MasterInstanceProfile:
+    Description: Master IAM Instance Profile
+    Value: !Ref MasterInstanceProfile
+
+  WorkerInstanceProfile:
+    Description: Worker IAM Instance Profile
+    Value: !Ref WorkerInstanceProfile
+
+  EMRAutoScalingRole:
+    Description: AutoScaling IAM EMR role
+    Value: !Ref EMRAutoScalingRole
+
+  EMRIamRole:
+    Description: EMR IAM Role
+    Value: !Ref EMRIamRole
