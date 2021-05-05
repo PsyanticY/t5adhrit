@@ -278,6 +278,10 @@ To generate a new Secret ID:
 To Have an idea on the Role run:
 
     `$ vault read auth/approle/role/<ROLE_NAME>`
+    
+To list all the roles:
+     `$ vault list auth/approle/role/`
+
 
 Example:
 ```
