@@ -2,18 +2,18 @@
 
 # components
 
-1 - ETCD: a key/value store that stores all relevant data on the kluster such as pods, rs, secrets, ...
+1 - ETCD: a key/value store that stores all relevant data on the cluster such as pods, rs, secrets, ...
 
-2 - api-server: used to communicate with the server ( kubectl use it for example) or we can use api calls, it communicate with all the other components to excute the admins request
+2 - api-server: used to communicate with the server ( kubectl use it for example) or we can use api calls, it communicate with all the other components to execute the admins request
 
 3 - Kube controller manager: Controls various components in the system and want to bring it to the desired state:
 * Node controller: Monitor the state of the nodes and take action to keep them in line with desired state
 * replication controller: Monitor the status of RS and make sure to bring the number of pods to the desired count
 * there is some other controllers that basically try to do the same such as deployment controller, namespace Controller, ...
 
-4 - kube scheduler: decides which pod goes on whitch node
+4 - kube scheduler: decides which pod goes on which node
 
-5 - kubelet: actually creat the pod on the node. They also send back reports on the status of the ship, ...
+5 - kubelet: actually create the pod on the node. They also send back reports on the status of the ship, ...
 
 6 - kube-proxy: create rules on nodes to forward traffic to the actual pods
 
@@ -25,13 +25,13 @@
 
         eksctl create cluster -f cluster.yaml
 
-_ eksctl, will create a cfn template where it creates an eks cluster with all the needed netwroking ( vpc included). it will also creates a nodegroup worker ( or something else such as builder) with another cfn, the node group worker contains autoscaling group, roles and sg for ec2_
+_ eksctl, will create a cfn template where it creates an eks cluster with all the needed networking ( vpc included). it will also creates a nodegroup worker ( or something else such as builder) with another cfn, the node group worker contains autoscaling group, roles and sg for ec2_
 
 We can check the number of nodes we have using 
 
         kubectl get nodes
 
-for more info about os running on nodes or other suff
+for more info about os running on nodes or other stuff
 
         kubectl get nodes -o wide
 
