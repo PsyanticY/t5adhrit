@@ -263,7 +263,7 @@ To get current services:
 
 - We can taint a node to prevent pods from being provisioned their unless they are tolerant to that node taint
 - To taint a node: 
-        jubectl taint nodes nodename key=value:taint-effect
+        kubectl taint nodes nodename key=value:taint-effect
 
 - `key=value` can be something like `app=blue` which is kinda of the taint name we can say
 - taint effect is the effect the pod will suffer if the scheduler tries to provision it there: 
@@ -344,7 +344,7 @@ spec:
 
 ## static PODS;
 
-- a static pod is a pod created by the `kubelet` on the node by placing the definition file under a certain path in the node cet by the option `pod-manifest-path` when running kubelet service
+- a static pod is a pod created by the `kubelet` on the node by placing the definition file under a certain path in the node set by the option `pod-manifest-path` when running kubelet service
 - static pod can be seen by the kube apiserver but can only be modified by the manifest file
 - kubeadmin tool basically use static pod to do the first setup of the pods in the master nods ie setting up etcd, apiserver, control-manager, ...
 
@@ -361,7 +361,7 @@ spec:
 
 ## monitoring and logging
 
-- kubelet contain CAdvisor which is responsible for retrieving performance metric from pods and expose them to the kubelet api to make them available fot the metric server
+- kubelet contain CAdvisor which is responsible for retrieving performance metric from pods and expose them to the kubelet api to make them available for the metric server
 - use `kubectl top node` or `kubectl top pod` to view cpu and mem consumption on the node/pod
 - we can have 1 metric server per k8s cluster
 
@@ -516,11 +516,18 @@ Check cluster info ( api server specifically )
 
         kubectl cluster-info
 
+We can also check using a specific kubeconfig
+
+        kubectl cluster-info --kubeconfig=/path/to/config
+
+!Note: This can allow to check issues with kubeconfig files and troubleshoot them
+
+
 ## backup and restore
 
-For backup we can save resource configuration to a local device or to github, e can also query the apiserver for a full breakdown of the configuration.
+For backup we can save resource configuration to a local device or to github, we also can query the apiserver for a full breakdown of the configuration.
 
-Or we cna use ETCD to take snapshot for backup and restore these snapshot if we wanna restore configuration from a given date
+Or we can use ETCD to take snapshot for backup and restore these snapshot if we wanna restore configuration from a given date
 
 
 To create an etcd snapshot: 
@@ -776,7 +783,7 @@ spec:
 - To prevent a given pod from communicating with other pods we can implement a network policy that we link to one or multiple pods
 - We use labels and selectors to link network policies to pods
 - we use label as well to let ingress access for example from namespaces or pods with matching labels
-- we can also allow acress from external ips
+- we can also allow access from external ips
 
 commands:
         kubectl get networkpolicies
@@ -973,7 +980,7 @@ To check the mac address of another node from the controlplane, run `arp node01`
 `netstat -nplt` to check Active Internet connections on a server
 
 
-The kubelet is the responsible for configuring CNI on each pod it creates
+The kubelet is responsible for configuring CNI on every pod it creates
 
 the default path configured with all binaries of CNI supported plugins is : /opt/cni/bin
 
@@ -1114,7 +1121,7 @@ ingress objects generally ( i think ) should live in the app namespace
 
 The api server can be running in HA mode using a loadbalancer in front of them
 
-The other component (scheduler and controller) though, they are in an active, standby mode, and these modes are deciding using a leader election algorithm
+The other component (scheduler and controller) though, they are in an active, standby mode, and these modes are decided using a leader election algorithm
 
 ## ETCD in HA
 
@@ -1148,3 +1155,12 @@ When using the normal get we can also sort output based on a filed
 Use a JSON PATH query to identify the context configured for the aws-user in the my-kube-config context fil
 
         kubectl config view --kubeconfig=my-kube-config -o jsonpath="{.contexts[?(@.context.user=='aws-user')].name}" > /opt/outputs/aws-context-name
+
+
+
+
+## other commands
+
+Check how an object is created and what args it gets:
+
+      kubectl explain pv
