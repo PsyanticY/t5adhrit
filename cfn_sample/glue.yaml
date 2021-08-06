@@ -1,0 +1,208 @@
+#cfn template modified from here: https://aws.amazon.com/blogs/database/how-to-extract-transform-and-load-data-for-analytic-processing-using-aws-glue-part-2/
+# creates a glue crawler to crawl data from an aurora db and an ETL job to get the data to s3
+# then make it available in 3s for athena queries 
+AWSTemplateFormatVersion: '2010-09-09'
+Parameters:
+  S3DestinationBucketName:
+    Description: The S3 Bucket Name.
+    Type: String
+  GlueDataBaseName:
+    Description: Glue database for data catalog
+    Type: String
+  DatabasePath:
+    Description: Schema Path for crawling the database and table schemas. DBname/%
+      for crawling all the tables in the DB
+      default: database/schema/%
+    Type: String
+Resources:
+  S3Bucket:
+    Type: AWS::S3::Bucket
+    Properties:
+      BucketName: !Ref 'S3DestinationBucketName'
+  AWSGlueRole:
+    Type: AWS::IAM::Role
+    Properties:
+      AssumeRolePolicyDocument:
+        Statement:
+          - Effect: Allow
+            Principal:
+              Service:
+                - glue.amazonaws.com
+            Action:
+              - sts:AssumeRole
+      Path: /
+      Policies:
+        - PolicyName: AWSGlueServiceRole
+          PolicyDocument:
+            Version: '2012-10-17'
+            Statement:
+              - Effect: Allow
+                Action:
+                  - glue:BatchGetCrawlers
+                  - glue:BatchGetJobs
+                  - glue:CreateCrawler
+                  - glue:CreateTable
+                  - glue:StartCrawler
+                  - glue:StartJobRun
+                  - glue:GetConnection
+                  - glue:GetDatabase
+                  - glue:GetTable
+                  - s3:GetBucketLocation
+                  - s3:ListBucket
+                  - s3:ListAllMyBuckets
+                  - s3:GetBucketAcl
+                  - ec2:DescribeVpcEndpoints
+                  - ec2:DescribeRouteTables
+                  - ec2:CreateNetworkInterface
+                  - ec2:DeleteNetworkInterface
+                  - ec2:DescribeNetworkInterfaces
+                  - ec2:DescribeSecurityGroups
+                  - ec2:DescribeSubnets
+                  - ec2:DescribeVpcAttribute
+                  - iam:ListRolePolicies
+                  - iam:GetRole
+                  - iam:GetRolePolicy
+                  - cloudwatch:PutMetricData
+                Resource:
+                  - '*'
+              - Effect: Allow
+                Action:
+                  - s3:CreateBucket
+                Resource:
+                  - arn:aws:s3:::aws-glue-*
+              - Effect: Allow
+                Action:
+                  - s3:GetObject
+                  - s3:PutObject
+                  - s3:DeleteObject
+                Resource:
+                  - arn:aws:s3:::aws-glue-*/*
+                  - arn:aws:s3:::*/*aws-glue-*/*
+              - Effect: Allow
+                Action:
+                  - s3:GetObject
+                Resource:
+                  - arn:aws:s3:::crawler-public*
+                  - arn:aws:s3:::aws-glue-*
+              - Effect: Allow
+                Action:
+                  - logs:CreateLogGroup
+                  - logs:CreateLogStream
+                  - logs:PutLogEvents
+                Resource:
+                  - arn:aws:logs:*:*:/aws-glue/*
+              - Effect: Allow
+                Action:
+                  - ec2:CreateTags
+                  - ec2:DeleteTags
+                Condition:
+                  ForAllValues:StringEquals:
+                    aws:TagKeys:
+                      - aws-glue-service-resource
+                Resource:
+                  - arn:aws:ec2:*:*:network-interface/*
+                  - arn:aws:ec2:*:*:security-group/*
+                  - arn:aws:ec2:*:*:instance/*
+        - PolicyName: ETLScriptsAccess
+          PolicyDocument:
+            Version: '2012-10-17'
+            Statement:
+              - Sid: VisualEditor0
+                Effect: Allow
+                Action:
+                  - s3:ListBucket
+                  - s3:GetObjectTagging
+                  - s3:GetObject
+                  - s3:GetBucketLocation
+                  - s3:GetObjectVersion
+                  - s3:ListJobs
+                  - s3:HeadBucket
+                Resource:
+                  - arn:aws:s3:::s3-bucket/*
+        - PolicyName: DestinationBucketPolicy
+          PolicyDocument:
+            Version: '2012-10-17'
+            Statement:
+              - Effect: Allow
+                Action: s3:*
+                Resource: !Join
+                  - ''
+                  - - !GetAtt 'S3Bucket.Arn'
+                    - /*
+
+  AWSGluedatabase:
+    Type: AWS::Glue::Database
+    Properties:
+      CatalogId: !Ref 'AWS::AccountId'
+      DatabaseInput:
+        Name: !Ref: 'GlueDataBaseName'
+
+  AWSGlueconnection:
+    Type: AWS::Glue::Connection
+    Properties:
+      CatalogId: !Ref 'AWS::AccountId'
+      ConnectionInput:
+        ConnectionType: JDBC
+        Name: !Join ['_', [!Ref: 'GlueDataBaseName', 'Glue_Connection']]
+        ConnectionProperties:
+          JDBC_CONNECTION_URL: "jdbc:postgresql://Endpoint:Port/database"
+          USERNAME: !Ref: DatabaseName
+          PASSWORD: !Ref: DatabasePassword
+        PhysicalConnectionRequirements:
+          SecurityGroupIdList:
+            - "sg-xxxxxxxxxxxxxxxxxxx"
+          SubnetId: "subnet-xxxxxxxxxxxxxxxxxxxxx"
+
+  GlueCrawler:
+    Type: AWS::Glue::Crawler
+    Properties:
+      Name: !Join ['_', [!Ref: 'GlueDataBaseName', 'Glue_Crawler']]
+      Role: !GetAtt 'AWSGlueRole.Arn'
+      DatabaseName: !Ref 'AWSGluedatabase'
+      Targets:
+        JdbcTargets:
+          - ConnectionName: !Ref 'AWSGlueconnection'
+            Path: !Ref 'DatabasePath'
+
+  GlueJob:
+    Type: AWS::Glue::Job
+    Properties:
+      Role: !Ref 'AWSGlueRole'
+      Connections:
+        Connections:
+          - !Ref 'AWSGlueconnection'
+      Description: Job created with CloudFormation using existing script
+      Command:
+        Name: glueetl
+        ScriptLocation: s3://test123/script_1.py
+      DefaultArguments:
+        --job-bookmark-option: job-bookmark-enable
+        --destination: !Ref 'S3Bucket'
+        --database: !Ref 'sourceDatabase'
+        --tableName: !Ref 'tableName'
+        --destCatalogue: !Ref 'destCatalogue'
+      ExecutionProperty:
+        MaxConcurrentRuns: 1
+      MaxRetries: 0
+      Name: !Join ['_', [!Ref: 'GlueDataBaseName', 'etljob']]
+      AllocatedCapacity: '2'
+
+Outputs:
+  S3BucketName:
+    Description: Name of S3 bucket
+    Value: !Ref 'S3Bucket'
+  gluedbName:
+    Value: !Ref 'AWSGluedatabase'
+    Description: Name of the database in Glue catalog.
+  GlueConnectionName:
+    Value: !Ref 'AWSGlueconnection'
+    Description: Name of the Aurora MySQL JDBC Connection in Glue.
+  GlueCrawlerName:
+    Value: !Ref 'GlueCrawler'
+    Description: Name of the Crawler in Glue.
+  GlueJobName:
+    Value: !Ref 'GlueJob'
+    Description: Name of the AWS Glue Job.
+  GlueIAMRole:
+    Value: !Ref 'AWSGlueRole'
+    Description: IAM Glue Service Role. This role will be needed during Glue job creation.
