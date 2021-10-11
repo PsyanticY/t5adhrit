@@ -152,6 +152,8 @@ export PATH="/usr/local/bin/:/usr/local/bin/:/usr/local/sbin:/usr/local/bin:/usr
 if [ -d "$HOME/.local/bin" ] ; then
     PATH="$HOME/.local/bin:$PATH"
 fi
+
+complete -C '/usr/local/bin/aws_completer' aws
 export HISTTIMEFORMAT="%d/%m/%y %T "
 source /home/dovah/.nix-profile/etc/profile.d/nix.sh
 export SSH_ASKPASS=ksshaskpass
