@@ -1,0 +1,26 @@
+# make sure to source this
+if [[ "$1" != "dev" ]]  && [[ "$1" != "staging" ]] && [[ "$1" != "prod" ]] ;
+ then
+     echo "ERROR: Invalid input, valid input: dev, staging, prod"
+     exit 1
+fi
+
+
+case $1 in
+dev)
+  echo "switching role to aws dev account"
+  eval $(aws sts assume-role --role-arn arn:aws:iam::XXXXXXXXXXXXXX:role/role-name --role-session-name aws-dev-account | jq -r '.Credentials | "export AWS_ACCESS_KEY_ID=\(.AccessKeyId)\nexport AWS_SECRET_ACCESS_KEY=\(.SecretAccessKey)\nexport AWS_SESSION_TOKEN=\(.SessionToken)\n"')
+  aws sts get-caller-identity
+;;
+staging)
+  echo "switching role to aws staging account"
+  eval $(aws sts assume-role --role-arn arn:aws:iam::XXXXXXXXXXXXXX:role/role-name --role-session-name aws-staging-account | jq -r '.Credentials | "export AWS_ACCESS_KEY_ID=\(.AccessKeyId)\nexport AWS_SECRET_ACCESS_KEY=\(.SecretAccessKey)\nexport AWS_SESSION_TOKEN=\(.SessionToken)\n"')
+  aws sts get-caller-identity
+;;
+prod)
+  echo "switching role to aws production account"
+  echo "!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!"
+  eval $(aws sts assume-role --role-arn arn:aws:iam::XXXXXXXXXXXXXX:role/role-name --role-session-name aws-production-account | jq -r '.Credentials | "export AWS_ACCESS_KEY_ID=\(.AccessKeyId)\nexport AWS_SECRET_ACCESS_KEY=\(.SecretAccessKey)\nexport AWS_SESSION_TOKEN=\(.SessionToken)\n"')
+  aws sts get-caller-identity
+;;
+esac
